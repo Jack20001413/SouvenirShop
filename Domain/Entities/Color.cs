@@ -1,0 +1,12 @@
+using System.Collections.Generic;
+using SouvenirShop.Domain.Entities.Common;
+
+namespace SouvenirShop.Domain.Entities
+{
+    public class Color : EntityBase, IAggregateRoot
+    {
+        public string Name { get; set; }
+
+        public virtual ICollection<ProductDetail> ProductDetails { get; set; }
+    }
+}
