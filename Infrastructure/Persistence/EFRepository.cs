@@ -6,7 +6,7 @@ namespace Infrastructure.Persistence
 {
     public class EFRepository<T> : IRepository<T> where T : class, IAggregateRoot
     {
-        private readonly SouvenirShopDbContext _db;
+        protected readonly SouvenirShopDbContext _db;
 
         public EFRepository(SouvenirShopDbContext db)
         {
@@ -15,27 +15,25 @@ namespace Infrastructure.Persistence
 
         public void Create(T entity)
         {
-            throw new System.NotImplementedException();
+            _db.Add<T>(entity);
+            _db.SaveChanges();
         }
 
         public void Delete(T entity)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public IEnumerable<T> GetAll()
-        {
-            throw new System.NotImplementedException();
+            _db.Set<T>().Remove(entity);
+            _db.SaveChanges();
         }
 
         public T GetById(int id)
         {
-            throw new System.NotImplementedException();
+            return _db.Set<T>().Find(id);
         }
 
         public void Update(T entity)
         {
-            throw new System.NotImplementedException();
+            _db.Set<T>().Update(entity);
+            _db.SaveChanges();
         }
     }
 }

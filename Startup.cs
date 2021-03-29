@@ -6,7 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
-
+using Domain.Repositories;
+using System;
 
 namespace SouvenirShop
 {
@@ -21,15 +22,22 @@ namespace SouvenirShop
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {
+        {   
+            // Make connection to MySql
             services.AddDbContext<SouvenirShopDbContext>(opt 
                 => opt.UseMySQL(Configuration.GetConnectionString("MySQL")));
+
+            // Add AutoMapper service
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SouvenirShop", Version = "v1" });
             });
             
+            // Architecture's Infrastructure Repositories
+            services.AddScoped((typeof(IRepository<>)), typeof(EFRepository<>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

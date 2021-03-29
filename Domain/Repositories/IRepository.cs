@@ -5,7 +5,6 @@ namespace Domain.Repositories
 {
     public interface IRepository<T> where T:IAggregateRoot
     {
-        IEnumerable<T> GetAll();
         T GetById(int id);
         void Create(T entity);
         void Update(T entity);
