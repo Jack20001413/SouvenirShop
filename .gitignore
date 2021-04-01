@@ -1,0 +1,6 @@
+
+bin/Debug/net5.0/SouvenirShop.pdb
+*.dll
+*.cache
+obj/Debug/net5.0/ref/SouvenirShop.dll
+*.pdb

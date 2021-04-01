@@ -6,8 +6,9 @@ namespace Domain.Repositories
     public interface IRepository<T> where T:IAggregateRoot
     {
         T GetById(int id);
-        void Create(T entity);
-        void Update(T entity);
-        void Delete(T entity);
+        int Create(T entity);
+        int Update(T entity);
+        int Delete(T entity);
+
     }
 }

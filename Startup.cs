@@ -8,6 +8,8 @@ using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Domain.Repositories;
 using System;
+using Application.Interfaces;
+using Application.Services;
 
 namespace SouvenirShop
 {
@@ -38,6 +40,10 @@ namespace SouvenirShop
             
             // Architecture's Infrastructure Repositories
             services.AddScoped((typeof(IRepository<>)), typeof(EFRepository<>));
+            services.AddScoped<IColorRepository, ColorRepository>();
+
+            // Architecture's Application Services
+            services.AddScoped<IColorService, ColorService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

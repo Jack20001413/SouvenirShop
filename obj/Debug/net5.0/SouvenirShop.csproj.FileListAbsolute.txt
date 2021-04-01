@@ -56,3 +56,5 @@ D:\Projects\CSharp\TMDT\Project\SouvenirShop\obj\Debug\net5.0\ref\SouvenirShop.d
 D:\Projects\CSharp\TMDT\Project\SouvenirShop\obj\Debug\net5.0\SouvenirShop.pdb
 D:\Projects\CSharp\TMDT\Project\SouvenirShop\obj\Debug\net5.0\SouvenirShop.genruntimeconfig.cache
 D:\Projects\CSharp\TMDT\Project\SouvenirShop\bin\Debug\net5.0\MySql.EntityFrameworkCore.dll
+D:\Projects\CSharp\TMDT\Project\SouvenirShop\bin\Debug\net5.0\AutoMapper.dll
+D:\Projects\CSharp\TMDT\Project\SouvenirShop\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

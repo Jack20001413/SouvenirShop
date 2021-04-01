@@ -1,5 +1,8 @@
 using System.Collections.Generic;
+using System.Data.Common;
+using System.Linq;
 using Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 using SouvenirShop.Domain.Entities.Common;
 
 namespace Infrastructure.Persistence
@@ -13,27 +16,59 @@ namespace Infrastructure.Persistence
             _db = db;
         }
 
-        public void Create(T entity)
+        public int Create(T entity)
         {
             _db.Add<T>(entity);
-            _db.SaveChanges();
+            int res = _db.SaveChanges();
+            return res;
         }
 
-        public void Delete(T entity)
+        public int Delete(T entity)
         {
             _db.Set<T>().Remove(entity);
-            _db.SaveChanges();
+            int res = _db.SaveChanges();
+            return res;
         }
+
+        // private bool Find(int id)
+        // {
+        //     return _db.Set<T>().Any(s => s.Id == id);
+        // }
 
         public T GetById(int id)
         {
-            return _db.Set<T>().Find(id);
+            var entity =  _db.Set<T>().Find(id);
+            try
+            {
+                _db.Entry(entity).State = EntityState.Detached;
+            }
+            catch (System.ArgumentNullException)
+            {
+                return null;                
+            }
+           
+            return entity;
         }
 
-        public void Update(T entity)
+        public int Update(T entity)
         {
-            _db.Set<T>().Update(entity);
-            _db.SaveChanges();
+            int res = 0;
+            try
+            {
+                _db.Set<T>().Update(entity);
+                res = _db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                return -1;
+            }
+            catch (DbException){
+                return -1;
+            }
+            
+            return res;
         }
+
+        
     }
 }
