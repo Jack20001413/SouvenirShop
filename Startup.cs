@@ -8,6 +8,10 @@ using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Domain.Repositories;
 using System;
+<<<<<<< HEAD
+=======
+using SouvenirShop.Helpers;
+>>>>>>> main
 using Application.Interfaces;
 using Application.Services;
 
@@ -40,10 +44,16 @@ namespace SouvenirShop
             
             // Architecture's Infrastructure Repositories
             services.AddScoped((typeof(IRepository<>)), typeof(EFRepository<>));
+<<<<<<< HEAD
             services.AddScoped<IColorRepository, ColorRepository>();
 
             // Architecture's Application Services
             services.AddScoped<IColorService, ColorService>();
+=======
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<IGrantPermissionRepository, GrantPermissionRepository>();
+            services.AddScoped<IEmployeeService, EmployeeService>();
+>>>>>>> main
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,6 +66,15 @@ namespace SouvenirShop
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SouvenirShop v1"));
             }
 
+            // global cors policy
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
+            // custom jwt auth middleware
+            app.UseMiddleware<JwtMiddleware>();
+            
             app.UseHttpsRedirection();
 
             app.UseRouting();

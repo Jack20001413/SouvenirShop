@@ -19,7 +19,10 @@ namespace Infrastructure.Persistence
 
         public IEnumerable<GrantPermission> GetByRoleId(int roleId)
         {
-            return _db.GrantPermissions.Where(s => s.RoleId == roleId).Include(s => s.Role).ToList();
+            return _db.GrantPermissions.Where(s => s.RoleId == roleId)
+            .Include(s => s.Role)
+            .Include(s => s.Permission)
+            .ToList();
         }
 
     }

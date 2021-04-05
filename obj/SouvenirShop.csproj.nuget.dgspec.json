@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Projects\\CSharp\\TMDT\\Project\\SouvenirShop\\SouvenirShop.csproj": {}
+    "D:\\TMDT\\SouvenirShop\\SouvenirShop.csproj": {}
   },
   "projects": {
-    "D:\\Projects\\CSharp\\TMDT\\Project\\SouvenirShop\\SouvenirShop.csproj": {
+    "D:\\TMDT\\SouvenirShop\\SouvenirShop.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\CSharp\\TMDT\\Project\\SouvenirShop\\SouvenirShop.csproj",
+        "projectUniqueName": "D:\\TMDT\\SouvenirShop\\SouvenirShop.csproj",
         "projectName": "SouvenirShop",
-        "projectPath": "D:\\Projects\\CSharp\\TMDT\\Project\\SouvenirShop\\SouvenirShop.csproj",
-        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\CSharp\\TMDT\\Project\\SouvenirShop\\obj\\",
+        "projectPath": "D:\\TMDT\\SouvenirShop\\SouvenirShop.csproj",
+        "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
+        "outputPath": "D:\\TMDT\\SouvenirShop\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -79,6 +79,10 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[5.6.3, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[6.7.1, )"
             }
           },
           "imports": [
@@ -99,7 +103,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

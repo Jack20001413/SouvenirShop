@@ -6,6 +6,7 @@ namespace Application.Interfaces
     public interface IEmployeeService
     {
         IEnumerable<EmployeeDto> GetAll();
+        JwtResponseDto Authenticate(LoginDto loginDto);
         EmployeeDto GetEmployee(int id);
          void CreateEmployee(EmployeeDto employee);
          void UpdateEmployee(EmployeeDto employee);

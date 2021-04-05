@@ -18,6 +18,7 @@ namespace Infrastructure.Persistence.Config
             
             builder.Property(e => e.BirthDate)
                 .IsRequired();
+                //.HasColumnType("Date");
 
             builder.Property(e => e.Password)
                 .IsRequired();
