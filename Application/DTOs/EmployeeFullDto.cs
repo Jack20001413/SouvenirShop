@@ -24,6 +24,6 @@ namespace Application.DTOs
 
         // [ForeignKey(nameof(Role))]
         // public int RoleId { get; set; }
-        public RoleFullDto RoleFull { get; set; }
+        public RoleFullDto Role { get; set; }
     }
 }

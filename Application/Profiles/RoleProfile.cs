@@ -4,9 +4,9 @@ using SouvenirShop.Domain.Entities;
 
 namespace Application.Profiles
 {
-    public class RoleFullProfile : Profile
+    public class RoleProfile : Profile
     {
-        public RoleFullProfile()
+        public RoleProfile()
         {
             CreateMap<Role, RoleFullDto>();
             CreateMap<RoleFullDto, Role>();

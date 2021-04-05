@@ -10,6 +10,8 @@ namespace Application.Profiles
         {
             CreateMap<Employee, EmployeeDto>();
             CreateMap<EmployeeDto, Employee>();
+            CreateMap<Employee, EmployeeFullDto>();
+            CreateMap<EmployeeFullDto, Employee>();
         }
     }
 }
