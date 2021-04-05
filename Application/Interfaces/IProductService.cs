@@ -7,9 +7,9 @@ namespace Application.Interfaces
     {
         IEnumerable<ProductDto> GetAll();
         ProductDto GetProduct(int id);
-         void CreateProduct(ProductDto product);
-         void UpdateProduct(ProductDto product);
-         void DeleteProduct(ProductDto product);
-         bool ProductExists(int id); 
+        ProductDto CreateProduct(ProductDto product);
+        ProductDto UpdateProduct(ProductDto product);
+        ProductDto DeleteProduct(int id);
+        bool ProductExists(int id); 
     }
 }
