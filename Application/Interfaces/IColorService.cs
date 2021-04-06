@@ -6,6 +6,7 @@ namespace Application.Interfaces
     public interface IColorService
     {
         IEnumerable<ColorDto> GetAll();
+        BaseSearchDto<ColorDto> GetAll(BaseSearchDto<ColorDto> searchDto);
         ColorDto GetColor(int id);
         ColorDto CreateColor(ColorDto color);
         ColorDto UpdateColor(ColorDto color);

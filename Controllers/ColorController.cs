@@ -25,6 +25,20 @@ namespace Controllers
             return Ok(colors);
         }
 
+        [HttpPost("search")]
+        public ActionResult<BaseSearchDto<ColorDto>> GetAll([FromBody] BaseSearchDto<ColorDto> searchDto) {
+            var search = _colorService.GetAll(searchDto);
+            if (search == null) {
+                List<string> errorMessage = new List<string>();
+                errorMessage.Add("Đã phát sinh lỗi, vui lòng thử lại");
+                return BadRequest(new ResponseDto(errorMessage, 500, search));
+            }
+            List<string> successMessage = new List<string>();
+            successMessage.Add("Lấy danh sách màu sắc thành công");
+            var responseDto = new ResponseDto(successMessage, 200, search);
+            return Ok(responseDto);
+        }
+
         [HttpGet("{id}")]
         public ActionResult<ColorDto> GetAColor(int id){
             var color = _colorService.GetColor(id);
