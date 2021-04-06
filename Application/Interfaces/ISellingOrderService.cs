@@ -7,9 +7,9 @@ namespace Application.Interfaces
     {
         IEnumerable<SellingOrderDto> GetAll();
         SellingOrderDto GetSellingOrder(int id);
-         void CreateSellingOrder(SellingOrderDto order);
-         void UpdateSellingOrder(SellingOrderDto order);
-         void DeleteSellingOrder(SellingOrderDto order);
-         bool SellingOrderExists(int id); 
+        SellingOrderDto CreateSellingOrder(SellingOrderDto orderDto);
+        SellingOrderDto UpdateSellingOrder(SellingOrderDto orderDto);
+        SellingOrderDto DeleteSellingOrder(int id);
+        bool SellingOrderExists(int id); 
     }
 }

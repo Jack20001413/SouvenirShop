@@ -7,9 +7,9 @@ namespace Application.Interfaces
     {
         IEnumerable<CustomerDto> GetAll();
         CustomerDto GetCustomer(int id);
-         void CreateCustomer(CustomerDto employee);
-         void UpdateCustomer(CustomerDto employee);
-         void DeleteCustomer(CustomerDto employee);
-         bool CustomerExists(int id); 
+        CustomerDto CreateCustomer(CustomerDto customerDto);
+        CustomerDto UpdateCustomer(CustomerDto customerDto);
+        CustomerDto DeleteCustomer(int id);
+        bool CustomerExists(int id); 
     }
 }

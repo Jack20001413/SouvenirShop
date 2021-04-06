@@ -7,9 +7,9 @@ namespace Application.Interfaces
     {
         IEnumerable<SupplierDto> GetAll();
         SupplierDto GetSupplier(int id);
-         void CreateSupplier(SupplierDto supplier);
-         void UpdateSupplier(SupplierDto supplier);
-         void DeleteSupplier(SupplierDto supplier);
+        SupplierDto CreateSupplier(SupplierDto supplierDto);
+        SupplierDto UpdateSupplier(SupplierDto supplierDto);
+        SupplierDto DeleteSupplier(int id);
          bool SupplierExists(int id); 
     }
 }

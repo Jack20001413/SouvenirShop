@@ -7,9 +7,9 @@ namespace Application.Interfaces
     {
         IEnumerable<SizeDto> GetAll();
         SizeDto GetSize(int id);
-         void CreateSize(SizeDto size);
-         void UpdateSize(SizeDto size);
-         void DeleteSize(SizeDto size);
+        SizeDto CreateSize(SizeDto sizeDto);
+        SizeDto UpdateSize(SizeDto sizeDto);
+        SizeDto DeleteSize(int id);
          bool SizeExists(int id); 
     }
 }

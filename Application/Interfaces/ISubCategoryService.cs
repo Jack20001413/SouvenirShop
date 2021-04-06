@@ -7,9 +7,9 @@ namespace Application.Interfaces
     {
         IEnumerable<SubCategoryDto> GetAll();
         SubCategoryDto GetSubCategory(int id);
-         void CreateSubCategory(SubCategoryDto subCategory);
-         void UpdateSubCategory(SubCategoryDto subCategory);
-         void DeleteSubCategory(SubCategoryDto subCategory);
+        SubCategoryDto CreateSubCategory(SubCategoryDto subCategoryDto);
+        SubCategoryDto UpdateSubCategory(SubCategoryDto subCategoryDto);
+        SubCategoryDto DeleteSubCategory(int id);
          bool SubCategoryExists(int id); 
     }
 }

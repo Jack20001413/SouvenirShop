@@ -7,9 +7,9 @@ namespace Application.Interfaces
     {
         IEnumerable<ImportingOrderDto> GetAll();
         ImportingOrderDto GetImportingOrder(int id);
-         void CreateImportingOrder(ImportingOrderDto order);
-         void UpdateImportingOrder(ImportingOrderDto order);
-         void DeleteImportingOrder(ImportingOrderDto order);
+        ImportingOrderDto CreateImportingOrder(ImportingOrderDto orderDto);
+        ImportingOrderDto UpdateImportingOrder(ImportingOrderDto orderDto);
+        ImportingOrderDto DeleteImportingOrder(int id);
          bool ImportingOrderExists(int id); 
     }
 }

@@ -7,9 +7,9 @@ namespace Application.Interfaces
     {
         IEnumerable<RoleDto> GetAll();
         RoleDto GetRole(int id);
-         void CreateRole(RoleDto role);
-         void UpdateRole(RoleDto role);
-         void DeleteRole(RoleDto role);
-         bool RoleExists(int id); 
+        RoleDto CreateRole(RoleDto roleDto);
+        RoleDto UpdateRole(RoleDto roleDto);
+        RoleDto DeleteRole(int id);
+        bool RoleExists(int id); 
     }
 }

@@ -7,9 +7,9 @@ namespace Application.Interfaces
     {
         IEnumerable<GrantPermissionDto> GetAll();
         GrantPermissionDto GetGrantPermission(int id);
-         void CreateGrantPermission(GrantPermissionDto grantPermission);
-         void UpdateGrantPermission(GrantPermissionDto grantPermission);
-         void DeleteGrantPermission(GrantPermissionDto grantPermission);
+        GrantPermissionDto CreateGrantPermission(GrantPermissionDto grantPermissionDto);
+        GrantPermissionDto UpdateGrantPermission(GrantPermissionDto grantPermissionDto);
+        GrantPermissionDto DeleteGrantPermission(int id);
          bool GrantPermissionExists(int id); 
     }
 }
