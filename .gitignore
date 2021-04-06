@@ -50,3 +50,7 @@ Thumbs.db
 
 bin/
 obj/
+*.cache
+*.dll
+*.exe
+*.pdb
