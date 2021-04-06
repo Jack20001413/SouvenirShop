@@ -10,10 +10,6 @@ namespace Application.Profiles
         {
             CreateMap<GrantPermission, GrantPermissionDto>();
             CreateMap<GrantPermissionDto, GrantPermission>();
-<<<<<<< HEAD
         }   
-=======
-        }
->>>>>>> main
     }
 }
