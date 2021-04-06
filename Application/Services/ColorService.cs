@@ -55,6 +55,22 @@ namespace Application.Services
             return _mapper.Map<IEnumerable<ColorDto>>(colors);
         }
 
+        public BaseSearchDto<ColorDto> GetAll(BaseSearchDto<ColorDto> searchDto) {
+            var colorSearch = _repo.GetAll(searchDto);
+            BaseSearchDto<ColorDto> colorDtoSearch = new BaseSearchDto<ColorDto>{
+                currentPage = colorSearch.currentPage,
+                recordOfPage = colorSearch.recordOfPage,
+                totalRecords = colorSearch.totalRecords,
+                sortAsc = colorSearch.sortAsc,
+                sortBy = colorSearch.sortBy,
+                createdDateSort = colorSearch.createdDateSort,
+                pagingRange = colorSearch.pagingRange,
+                result = _mapper.Map<List<ColorDto>>(colorSearch.result)
+            };
+            return colorDtoSearch;
+        }
+
+
         public ColorDto GetColor(int id)
         {
             var color = _repo.GetById(id);
