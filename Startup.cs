@@ -43,10 +43,11 @@ namespace SouvenirShop
             services.AddScoped((typeof(IRepository<>)), typeof(EFRepository<>));
             services.AddScoped<IColorRepository, ColorRepository>();
             services.AddScoped<ISizeRepository, SizeRepository>();
-
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
             // Architecture's Application Services
             services.AddScoped<IColorService, ColorService>();
             services.AddScoped<ISizeService, SizeService>();
+            services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddScoped<IGrantPermissionRepository, GrantPermissionRepository>();
             services.AddScoped<IEmployeeService, EmployeeService>();
