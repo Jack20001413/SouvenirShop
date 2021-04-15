@@ -9,7 +9,9 @@ namespace Application.Profiles
         public RoleProfile()
         {
             CreateMap<Role, RoleFullDto>();
+            CreateMap<Role, RoleDto>();
             CreateMap<RoleFullDto, Role>();
+            CreateMap<RoleDto, Role>();
         }
     }
 }
