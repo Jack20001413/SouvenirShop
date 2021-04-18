@@ -96,6 +96,11 @@ namespace Application.Services
 
         public RoleFullDto UpdateRole(RoleFullDto roleDto)
         {
+            foreach (GrantPermissionDto g in roleDto.GrantPermissions) {
+                g.PermissionId = g.Permission.Id;
+                g.Permission = null;
+            }
+            _grantPermissionRepo.DeleteByRoleId(roleDto.Id);
             var role = _mapper.Map<Role>(roleDto);
             int res = _repo.Update(role);
 

@@ -25,6 +25,10 @@ namespace Infrastructure.Persistence
             .ToList();
         }
 
+        public void DeleteByRoleId(int roleId) {
+            _db.GrantPermissions.RemoveRange(_db.GrantPermissions.Where(x => x.RoleId == roleId));
+        }
+
         
     }
 }
