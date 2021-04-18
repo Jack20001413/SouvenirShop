@@ -11,5 +11,7 @@ namespace Application.Interfaces
         CustomerDto UpdateCustomer(CustomerDto customerDto);
         CustomerDto DeleteCustomer(int id);
         bool CustomerExists(int id); 
+        BaseSearchDto<CustomerDto> GetAll(BaseSearchDto<CustomerDto> searchDto);
+        List<CustomerDto> GetLikeName(string name);
     }
 }

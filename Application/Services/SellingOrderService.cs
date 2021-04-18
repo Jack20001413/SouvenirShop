@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Application.DTOs;
 using Application.Interfaces;
 using AutoMapper;
@@ -11,11 +12,18 @@ namespace Application.Services
     {
         private readonly ISellingOrderRepository _orderRepo;
         private readonly IMapper _mapper;
+        private readonly ISellingTransactionRepository _transRepo;
+        private readonly ICustomerRepository _customerRepo;
 
-        public SellingOrderService(ISellingOrderRepository orderRepo, IMapper mapper)
+        public SellingOrderService(ISellingOrderRepository orderRepo
+                                   ,IMapper mapper
+                                   ,ISellingTransactionRepository transRepo
+                                   ,ICustomerRepository customerRepo)
         {
             _orderRepo = orderRepo;
             _mapper = mapper;
+            _transRepo = transRepo;
+            _customerRepo = customerRepo;
         }
 
         public SellingOrderDto CreateSellingOrder(SellingOrderDto orderDto)
@@ -48,6 +56,28 @@ namespace Application.Services
         {
             var orders = _orderRepo.GetAll();
             return _mapper.Map<IEnumerable<SellingOrderDto>>(orders);
+        }
+
+        public BaseSearchDto<SellingOrderDto> GetAll(BaseSearchDto<SellingOrderDto> searchDto)
+        {
+            var orderSearch = _orderRepo.GetAll(searchDto);
+            var customers = _customerRepo.GetAll().ToList();
+
+            foreach (SellingOrder o in orderSearch.result) {
+                o.Customer = customers.Where(c => c.Id == o.CustomerId).FirstOrDefault();
+            }
+
+            BaseSearchDto<SellingOrderDto> orderDtoSearch = new BaseSearchDto<SellingOrderDto>{
+                currentPage = orderSearch.currentPage,
+                recordOfPage = orderSearch.recordOfPage,
+                totalRecords = orderSearch.totalRecords,
+                sortAsc = orderSearch.sortAsc,
+                sortBy = orderSearch.sortBy,
+                createdDateSort = orderSearch.createdDateSort,
+                pagingRange = orderSearch.pagingRange,
+                result = _mapper.Map<List<SellingOrderDto>>(orderSearch.result)
+            };
+            return orderDtoSearch;
         }
 
         public SellingOrderDto GetSellingOrder(int id)

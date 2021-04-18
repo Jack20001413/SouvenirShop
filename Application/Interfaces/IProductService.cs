@@ -10,6 +10,8 @@ namespace Application.Interfaces
         ProductDto CreateProduct(ProductDto product);
         ProductDto UpdateProduct(ProductDto product);
         ProductDto DeleteProduct(int id);
-        bool ProductExists(int id); 
+        bool ProductExists(int id);
+        BaseSearchDto<ProductDto> GetAll(BaseSearchDto<ProductDto> searchDto);
+        List<ProductDto> GetLikeName(string name);
     }
 }

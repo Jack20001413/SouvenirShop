@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Application.DTOs;
 using SouvenirShop.Domain.Entities;
 
 namespace Domain.Repositories
@@ -8,5 +9,7 @@ namespace Domain.Repositories
         IEnumerable<Employee> GetAll();
 
         Employee GetEmployeeByEmail(string email);
+        BaseSearchDto<Employee> GetAll(BaseSearchDto<EmployeeDto> search);
+        List<Employee> GetLikeName(string name);
     }
 }

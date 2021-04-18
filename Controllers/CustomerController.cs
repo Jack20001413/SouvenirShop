@@ -1,130 +1,120 @@
 using System.Collections.Generic;
 using Application.DTOs;
-using Application.Services;
+using Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Controllers
 {
     [ApiController]
-    [Route("api/{controller}")]
-    public class ProductController : ControllerBase
+    [Route("api/[controller]")]
+    public class CustomerController : ControllerBase
     {
-        private readonly ProductService _productService;
+        private readonly ICustomerService _customerService;
 
-        public ProductController(ProductService productService)
+        public CustomerController(ICustomerService customerService)
         {
-            _productService = productService;
+            _customerService = customerService;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<ProductDto>> GetAll(){
-            var products = _productService.GetAll();
+        public ActionResult<IEnumerable<CustomerDto>> GetAll(){
+            var customers = _customerService.GetAll();
 
-            if( products == null){
-                 List<string> errorMessage = new List<string>();
+            if( customers == null){
+                List<string> errorMessage = new List<string>();
                 errorMessage.Add("Đã phát sinh lỗi, vui lòng thử lại");
-                return BadRequest(new ResponseDto(errorMessage, 500, products));
+                return NotFound(new ResponseDto(errorMessage, 500, customers));
             }
 
             List<string> successMessage = new List<string>();
-            successMessage.Add("Lấy danh mục con hàng hoá thành công");
-            var responseDto = new ResponseDto(successMessage, 200, products);
+            successMessage.Add("Lấy danh mục khách hàng thành công");
+            var responseDto = new ResponseDto(successMessage, 200, customers);
             return Ok(responseDto);
         }
 
         [HttpPost("search")]
-        public ActionResult<BaseSearchDto<ProductDto>> GetAll([FromBody] BaseSearchDto<ProductDto> searchDto) {
-            var search = _productService.GetAll(searchDto);
-
+        public ActionResult<BaseSearchDto<CustomerDto>> GetAll([FromBody] BaseSearchDto<CustomerDto> searchDto) {
+            var search = _customerService.GetAll(searchDto);
             if (search == null) {
                 List<string> errorMessage = new List<string>();
                 errorMessage.Add("Đã phát sinh lỗi, vui lòng thử lại");
                 return BadRequest(new ResponseDto(errorMessage, 500, search));
             }
-
             List<string> successMessage = new List<string>();
-            successMessage.Add("Lấy danh mục con hàng hoá thành công");
+            successMessage.Add("Lấy danh mục khách hàng thành công");
             var responseDto = new ResponseDto(successMessage, 200, search);
             return Ok(responseDto);
         }
 
         [HttpGet("get-like-name/{name}")]
-        public ActionResult<List<ProductDto>> GetLikeName(string name){
-            var products = _productService.GetLikeName(name);
+        public ActionResult<List<CustomerDto>> GetLikeName(string name){
+            var customers = _customerService.GetLikeName(name);
 
-            if (products == null) {
+            if (customers == null) {
                 List<string> errorMessage = new List<string>();
                 errorMessage.Add("Đã phát sinh lỗi, vui lòng thử lại");
-                return BadRequest(new ResponseDto(errorMessage, 500, products));
+                return NotFound(new ResponseDto(errorMessage, 500, customers));
             }
-
             List<string> successMessage = new List<string>();
             successMessage.Add("Lấy thông tin thành công");
-            var responseDto = new ResponseDto(successMessage, 200, products);
+            var responseDto = new ResponseDto(successMessage, 200, customers);
             return Ok(responseDto);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<ProductDto> GetAProduct(int id){
-            var product = _productService.GetProduct(id);
+        public ActionResult<CustomerDto> GetACustomer(int id){
+            var customer = _customerService.GetCustomer(id);
 
-            if (product == null) {
+            if (customer == null) {
                 List<string> errorMessage = new List<string>();
                 errorMessage.Add("Đã phát sinh lỗi, vui lòng thử lại");
-                return BadRequest(new ResponseDto(errorMessage, 500, product));
+                return NotFound(new ResponseDto(errorMessage, 500, customer));
             }
-
             List<string> successMessage = new List<string>();
             successMessage.Add("Lấy thông tin thành công");
-            var responseDto = new ResponseDto(successMessage, 200, product);
+            var responseDto = new ResponseDto(successMessage, 200, customer);
             return Ok(responseDto);
         }
 
         [HttpPost("insert")]
-        public ActionResult<ProductDto> CreateProduct([FromBody] ProductDto product){
-            product.SubCategoryId = product.SubCategory.Id;
-            product.SubCategory = null;
+        public ActionResult<CustomerDto> CreateCustomer([FromBody] CustomerDto customer){
+            var customerDto = _customerService.CreateCustomer(customer);
 
-            var productDto = _productService.CreateProduct(product);
-
-            if (productDto == null) {
+            if (customerDto == null) {
                 List<string> errorMessage = new List<string>();
                 errorMessage.Add("Đã phát sinh lỗi, vui lòng thử lại");
-                return BadRequest(new ResponseDto(errorMessage, 500, productDto));
+                return BadRequest(new ResponseDto(errorMessage, 500, customerDto));
             }
-
             List<string> successMessage = new List<string>();
             successMessage.Add("Thêm thông tin thành công");
-            var responseDto = new ResponseDto(successMessage, 200, productDto);
-            return Ok(responseDto);
+            var responseDto = new ResponseDto(successMessage, 200, customerDto);
+            return CreatedAtAction(nameof(GetAll) ,responseDto);
         }
 
         [HttpPut("update")]
-        public ActionResult<ProductDto> UpdateProduct([FromBody] ProductDto product){
-            var productDto = _productService.UpdateProduct(product);
+        public ActionResult<CustomerDto> UpdateCustomer([FromBody] CustomerDto customer){
+            var customerDto = _customerService.UpdateCustomer(customer);
 
-            if (productDto == null) {
+            if (customerDto == null) {
                 List<string> errorMessage = new List<string>();
                 errorMessage.Add("Đã phát sinh lỗi, vui lòng thử lại");
-                return BadRequest(new ResponseDto(errorMessage, 500, productDto));
+                return NotFound(new ResponseDto(errorMessage, 500, customerDto));
             }
-
             List<string> successMessage = new List<string>();
             successMessage.Add("Sửa thông tin thành công");
-            var responseDto = new ResponseDto(successMessage, 200, productDto);
+            var responseDto = new ResponseDto(successMessage, 200, customerDto);
             return Ok(responseDto);
         }
 
         [HttpDelete("delete/{id:int}")]
-        public ActionResult<ProductDto> DeleteProduct(int id){
-            var productDto = _productService.DeleteProduct(id);
+        public ActionResult<CustomerDto> DeleteCustomer(int id){
+            var customerDto = _customerService.DeleteCustomer(id);
 
-            if (productDto == null) {
+            if (customerDto == null) {
                 List<string> errorMessage = new List<string>();
                 errorMessage.Add("Đã phát sinh lỗi, vui lòng thử lại");
-                return BadRequest(new ResponseDto(errorMessage, 500, ""));
+                return NotFound(new ResponseDto(errorMessage, 500, ""));
             }
-            
             List<string> successMessage = new List<string>();
             successMessage.Add("Xoá thành công");
             var responseDto = new ResponseDto(successMessage, 200, "");

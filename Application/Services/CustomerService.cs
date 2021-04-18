@@ -59,10 +59,33 @@ namespace Application.Services
             return _mapper.Map<IEnumerable<CustomerDto>>(customers);
         }
 
+        public BaseSearchDto<CustomerDto> GetAll(BaseSearchDto<CustomerDto> searchDto)
+        {
+            var customerSearch = _repo.GetAll(searchDto);
+
+            BaseSearchDto<CustomerDto> customerDtoSearch = new BaseSearchDto<CustomerDto>{
+                currentPage = customerSearch.currentPage,
+                recordOfPage = customerSearch.recordOfPage,
+                totalRecords = customerSearch.totalRecords,
+                sortAsc = customerSearch.sortAsc,
+                sortBy = customerSearch.sortBy,
+                createdDateSort = customerSearch.createdDateSort,
+                pagingRange = customerSearch.pagingRange,
+                result = _mapper.Map<List<CustomerDto>>(customerSearch.result)
+            };
+            return customerDtoSearch;
+        }
+
         public CustomerDto GetCustomer(int id)
         {
             var customer = _repo.GetById(id);
             return _mapper.Map<CustomerDto>(customer);
+        }
+
+        public List<CustomerDto> GetLikeName(string name)
+        {
+            var customers = _repo.GetLikeName(name);
+            return _mapper.Map<List<CustomerDto>>(customers);
         }
 
         public CustomerDto UpdateCustomer(CustomerDto customerDto)

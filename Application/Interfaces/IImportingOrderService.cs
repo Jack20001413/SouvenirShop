@@ -10,6 +10,7 @@ namespace Application.Interfaces
         ImportingOrderDto CreateImportingOrder(ImportingOrderDto orderDto);
         ImportingOrderDto UpdateImportingOrder(ImportingOrderDto orderDto);
         ImportingOrderDto DeleteImportingOrder(int id);
-         bool ImportingOrderExists(int id); 
+        bool ImportingOrderExists(int id); 
+        BaseSearchDto<ImportingOrderDto> GetAll(BaseSearchDto<ImportingOrderDto> searchDto);
     }
 }

@@ -10,6 +10,8 @@ namespace Application.Interfaces
         SupplierDto CreateSupplier(SupplierDto supplierDto);
         SupplierDto UpdateSupplier(SupplierDto supplierDto);
         SupplierDto DeleteSupplier(int id);
-         bool SupplierExists(int id); 
+        bool SupplierExists(int id); 
+        BaseSearchDto<SupplierDto>  GetAll(BaseSearchDto<SupplierDto> searchDto);
+        List<SupplierDto> GetLikeName(string name);
     }
 }

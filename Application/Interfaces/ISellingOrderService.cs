@@ -11,5 +11,6 @@ namespace Application.Interfaces
         SellingOrderDto UpdateSellingOrder(SellingOrderDto orderDto);
         SellingOrderDto DeleteSellingOrder(int id);
         bool SellingOrderExists(int id); 
+        BaseSearchDto<SellingOrderDto> GetAll(BaseSearchDto<SellingOrderDto> searchDto);
     }
 }

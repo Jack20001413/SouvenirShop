@@ -8,9 +8,11 @@ namespace Application.Interfaces
         IEnumerable<EmployeeDto> GetAll();
         JwtResponseDto Authenticate(LoginDto loginDto);
         EmployeeDto GetEmployee(int id);
-         void CreateEmployee(EmployeeDto employee);
-         void UpdateEmployee(EmployeeDto employee);
-         void DeleteEmployee(EmployeeDto employee);
-         bool EmployeeExists(int id); 
+        EmployeeDto CreateEmployee(EmployeeDto employeeDto);
+        EmployeeDto UpdateEmployee(EmployeeDto employeeDto);
+        EmployeeDto DeleteEmployee(int id);
+        bool EmployeeExists(int id); 
+        BaseSearchDto<EmployeeDto> GetAll(BaseSearchDto<EmployeeDto> searchDto);
+        List<EmployeeDto> GetLikeName(string name);
     }
 }

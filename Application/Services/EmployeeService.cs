@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using Application.DTOs;
@@ -20,16 +21,19 @@ namespace Application.Services
         private readonly IGrantPermissionRepository grantPermissionRepository;
         private readonly IMapper _mapper;
         private readonly AppSettings _appSettings;
+        private readonly IRoleRepository _roleRepository;
 
         public EmployeeService(IEmployeeRepository employeeRepository
                                  ,IMapper mapper
                                  ,IGrantPermissionRepository grantPermissionRepository
-                                 ,IOptions<AppSettings> appSettings)
+                                 ,IOptions<AppSettings> appSettings
+                                 ,IRoleRepository roleRepository)
         {
             this.employeeRepository = employeeRepository;
             this.grantPermissionRepository = grantPermissionRepository;
             _mapper = mapper;
             _appSettings = appSettings.Value;
+            _roleRepository = roleRepository;
         }
 
         public JwtResponseDto Authenticate(LoginDto loginDto)
@@ -53,25 +57,67 @@ namespace Application.Services
             return new JwtResponseDto(employeeFullDto, token);
         }
 
-        public void CreateEmployee(EmployeeDto brand)
+        public EmployeeDto CreateEmployee(EmployeeDto employeeDto)
         {
-            throw new System.NotImplementedException();
+            var employee = _mapper.Map<Employee>(employeeDto);
+            int res = employeeRepository.Create(employee);
+
+            if(res <= 0){
+                return null;
+            }
+            return employeeDto;
         }
 
-        public void DeleteEmployee(EmployeeDto brand)
+        public EmployeeDto DeleteEmployee(int id)
         {
-            throw new System.NotImplementedException();
+            var existed = this.EmployeeExists(id);
+            if(!existed){
+                return null;
+            }
+            var employee = employeeRepository.GetById(id);
+            int res = employeeRepository.Delete(employee);
+
+            if(res <= 0){
+                return null;
+            }
+            return _mapper.Map<EmployeeDto>(employee);
         }
 
         public bool EmployeeExists(int id)
         {
-            throw new System.NotImplementedException();
+            var employee = employeeRepository.GetById(id);
+            if(employee == null){
+                return false;
+            }
+            return true;
         }
 
         public IEnumerable<EmployeeDto> GetAll()
         {
             var employee = employeeRepository.GetAll();
             return _mapper.Map<IEnumerable<EmployeeDto>>(employee);
+        }
+
+        public BaseSearchDto<EmployeeDto> GetAll(BaseSearchDto<EmployeeDto> searchDto)
+        {
+            var employeeSearch = employeeRepository.GetAll(searchDto);
+
+            var roles = _roleRepository.GetAll().ToList();
+            foreach (Employee c in employeeSearch.result) {
+                c.Role = roles.Where(s => s.Id == c.RoleId).FirstOrDefault();
+            }
+
+            BaseSearchDto<EmployeeDto> subCategoryDtoSearch = new BaseSearchDto<EmployeeDto>{
+                currentPage = employeeSearch.currentPage,
+                recordOfPage = employeeSearch.recordOfPage,
+                totalRecords = employeeSearch.totalRecords,
+                sortAsc = employeeSearch.sortAsc,
+                sortBy = employeeSearch.sortBy,
+                createdDateSort = employeeSearch.createdDateSort,
+                pagingRange = employeeSearch.pagingRange,
+                result = _mapper.Map<List<EmployeeDto>>(employeeSearch.result)
+            };
+            return subCategoryDtoSearch;
         }
 
         public EmployeeDto GetEmployee(int id)
@@ -95,9 +141,21 @@ namespace Application.Services
             return employeeFullDto;
         }
 
-        public void UpdateEmployee(EmployeeDto brand)
+        public List<EmployeeDto> GetLikeName(string name)
         {
-            throw new System.NotImplementedException();
+            var employees = employeeRepository.GetLikeName(name);
+            return _mapper.Map<List<EmployeeDto>>(employees);
+        }
+
+        public EmployeeDto UpdateEmployee(EmployeeDto employeeDto)
+        {
+            var employee = _mapper.Map<Employee>(employeeDto);
+            int res = employeeRepository.Update(employee);
+
+            if(res <= 0){
+                return null;
+            }
+            return employeeDto;
         }
 
          // helper methods

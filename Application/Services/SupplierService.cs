@@ -50,6 +50,27 @@ namespace Application.Services
             return _mapper.Map<IEnumerable<SupplierDto>>(suppliers);
         }
 
+        public BaseSearchDto<SupplierDto> GetAll(BaseSearchDto<SupplierDto> searchDto)
+        {
+            var supplierSearch = _repo.GetAll(searchDto);
+            BaseSearchDto<SupplierDto> supplierDtoSearch = new BaseSearchDto<SupplierDto>{
+                currentPage = supplierSearch.currentPage,
+                recordOfPage = supplierSearch.recordOfPage,
+                totalRecords = supplierSearch.totalRecords,
+                sortAsc = supplierSearch.sortAsc,
+                sortBy = supplierSearch.sortBy,
+                createdDateSort = supplierSearch.createdDateSort,
+                pagingRange = supplierSearch.pagingRange,
+                result = _mapper.Map<List<SupplierDto>>(supplierSearch.result)
+            };
+            return supplierDtoSearch;
+        }
+
+        public List<SupplierDto> GetLikeName(string name) {
+            var suppliers = _repo.GetLikeName(name);
+            return _mapper.Map<List<SupplierDto>>(suppliers);
+        }
+
         public SupplierDto GetSupplier(int id)
         {
             var supplier= _repo.GetById(id);
