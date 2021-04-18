@@ -3,10 +3,11 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.DTOs;
+using Microsoft.EntityFrameworkCore;
 
 namespace SouvenirShop.Helpers
 {
-    public static class DataPagerExtensioin
+    public static class DataPagerExtension
     {
         public static BaseSearchDto<TModel> Paginate<TModel>(
             this IQueryable<TModel> query,

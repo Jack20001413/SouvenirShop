@@ -50,6 +50,21 @@ namespace Application.Services
             return _mapper.Map<IEnumerable<SizeDto>>(sizes);
         }
 
+        public BaseSearchDto<SizeDto> GetAll(BaseSearchDto<SizeDto> searchDto) {
+            var sizeSearch = _repo.GetAll(searchDto);
+            BaseSearchDto<SizeDto> sizeDtoSearch = new BaseSearchDto<SizeDto>{
+                currentPage = sizeSearch.currentPage,
+                recordOfPage = sizeSearch.recordOfPage,
+                totalRecords = sizeSearch.totalRecords,
+                sortAsc = sizeSearch.sortAsc,
+                sortBy = sizeSearch.sortBy,
+                createdDateSort = sizeSearch.createdDateSort,
+                pagingRange = sizeSearch.pagingRange,
+                result = _mapper.Map<List<SizeDto>>(sizeSearch.result)
+            };
+            return sizeDtoSearch;
+        }
+
         public SizeDto GetSize(int id)
         {
             var size = _repo.GetById(id);

@@ -7,18 +7,18 @@ namespace Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ColorController : ControllerBase
+    public class SizeController : ControllerBase
     {
-        private readonly IColorService _colorService;
+        private readonly ISizeService _sizeService;
 
-        public ColorController(IColorService colorService)
+        public SizeController(ISizeService sizeService)
         {
-            _colorService = colorService;
+            _sizeService = sizeService;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<ColorDto>> GetAll(){
-            var colors = _colorService.GetAll();
+        public ActionResult<IEnumerable<SizeDto>> GetAll(){
+            var colors = _sizeService.GetAll();
             if( colors == null){
                 return NotFound("Empty list");
             }
@@ -26,69 +26,69 @@ namespace Controllers
         }
 
         [HttpPost("search")]
-        public ActionResult<BaseSearchDto<ColorDto>> GetAll([FromBody] BaseSearchDto<ColorDto> searchDto) {
-            var search = _colorService.GetAll(searchDto);
+        public ActionResult<BaseSearchDto<SizeDto>> GetAll([FromBody] BaseSearchDto<SizeDto> searchDto) {
+            var search = _sizeService.GetAll(searchDto);
             if (search == null) {
                 List<string> errorMessage = new List<string>();
                 errorMessage.Add("Đã phát sinh lỗi, vui lòng thử lại");
                 return BadRequest(new ResponseDto(errorMessage, 500, search));
             }
             List<string> successMessage = new List<string>();
-            successMessage.Add("Lấy danh sách màu sắc thành công");
+            successMessage.Add("Lấy danh sách kích thước thành công");
             var responseDto = new ResponseDto(successMessage, 200, search);
             return Ok(responseDto);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<ColorDto> GetAColor(int id){
-            var color = _colorService.GetColor(id);
+        public ActionResult<SizeDto> GetASize(int id){
+            var size = _sizeService.GetSize(id);
 
-            if (color == null) {
+            if (size == null) {
                 List<string> errorMessage = new List<string>();
                 errorMessage.Add("Đã phát sinh lỗi, vui lòng thử lại");
-                return BadRequest(new ResponseDto(errorMessage, 500, color));
+                return BadRequest(new ResponseDto(errorMessage, 500, size));
             }
             List<string> successMessage = new List<string>();
             successMessage.Add("Lấy thông tin thành công");
-            var responseDto = new ResponseDto(successMessage, 200, color);
+            var responseDto = new ResponseDto(successMessage, 200, size);
             return Ok(responseDto);
         }
 
         [HttpPost("insert")]
-        public ActionResult<ColorDto> CreateColor([FromBody] ColorDto color){
-            var colorDto = _colorService.CreateColor(color);
+        public ActionResult<SizeDto> CreateSize([FromBody] SizeDto size){
+            var sizeDto = _sizeService.CreateSize(size);
 
-            if (colorDto == null) {
+            if (sizeDto == null) {
                 List<string> errorMessage = new List<string>();
                 errorMessage.Add("Đã phát sinh lỗi, vui lòng thử lại");
-                return BadRequest(new ResponseDto(errorMessage, 500, colorDto));
+                return BadRequest(new ResponseDto(errorMessage, 500, sizeDto));
             }
             List<string> successMessage = new List<string>();
             successMessage.Add("Thêm thông tin thành công");
-            var responseDto = new ResponseDto(successMessage, 200, colorDto);
+            var responseDto = new ResponseDto(successMessage, 200, sizeDto);
             return Ok(responseDto);
         }
 
         [HttpPut("update")]
-        public ActionResult<ColorDto> UpdateColor([FromBody] ColorDto color){
-            var colorDto = _colorService.UpdateColor(color);
+        public ActionResult<SizeDto> UpdateSize([FromBody] SizeDto size){
+            var sizeDto = _sizeService.UpdateSize(size);
 
-            if (colorDto == null) {
+            if (sizeDto == null) {
                 List<string> errorMessage = new List<string>();
                 errorMessage.Add("Đã phát sinh lỗi, vui lòng thử lại");
-                return BadRequest(new ResponseDto(errorMessage, 500, colorDto));
+                return BadRequest(new ResponseDto(errorMessage, 500, sizeDto));
             }
             List<string> successMessage = new List<string>();
             successMessage.Add("Sửa thông tin thành công");
-            var responseDto = new ResponseDto(successMessage, 200, colorDto);
+            var responseDto = new ResponseDto(successMessage, 200, sizeDto);
             return Ok(responseDto);
         }
 
         [HttpDelete("delete/{id:int}")]
-        public ActionResult<ColorDto> DeleteColor(int id){
-            var colorDto = _colorService.DeleteColor(id);
+        public ActionResult<SizeDto> DeleteSize(int id){
+            var sizeDto = _sizeService.DeleteSize(id);
 
-            if (colorDto == null) {
+            if (sizeDto == null) {
                 List<string> errorMessage = new List<string>();
                 errorMessage.Add("Đã phát sinh lỗi, vui lòng thử lại");
                 return BadRequest(new ResponseDto(errorMessage, 500, ""));

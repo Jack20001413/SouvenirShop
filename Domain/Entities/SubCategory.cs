@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using SouvenirShop.Domain.Entities.Common;
 
 namespace SouvenirShop.Domain.Entities
@@ -7,6 +8,7 @@ namespace SouvenirShop.Domain.Entities
     {
         public string Name { get; set; }
 
+        [ForeignKey(nameof(Category))]
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; }
 

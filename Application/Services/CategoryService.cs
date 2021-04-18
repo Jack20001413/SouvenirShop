@@ -60,6 +60,26 @@ namespace Application.Services
             return _mapper.Map<IEnumerable<CategoryDto>>(categories);
         }
 
+        public BaseSearchDto<CategoryDto> GetAll(BaseSearchDto<CategoryDto> searchDto) {
+            var categorySearch = _repo.GetAll(searchDto);
+            BaseSearchDto<CategoryDto> categoryDtoSearch = new BaseSearchDto<CategoryDto>{
+                currentPage = categorySearch.currentPage,
+                recordOfPage = categorySearch.recordOfPage,
+                totalRecords = categorySearch.totalRecords,
+                sortAsc = categorySearch.sortAsc,
+                sortBy = categorySearch.sortBy,
+                createdDateSort = categorySearch.createdDateSort,
+                pagingRange = categorySearch.pagingRange,
+                result = _mapper.Map<List<CategoryDto>>(categorySearch.result)
+            };
+            return categoryDtoSearch;
+        }
+
+        public List<CategoryDto> GetLikeName(string name) {
+            var categories = _repo.GetLikeName(name);
+            return _mapper.Map<List<CategoryDto>>(categories);
+        }
+
         public CategoryDto GetCategory(int id)
         {
             var category = _repo.GetById(id);
