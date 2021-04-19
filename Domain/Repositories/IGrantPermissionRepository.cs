@@ -8,6 +8,6 @@ namespace Domain.Repositories
     {
         IEnumerable<GrantPermission> GetAll();
         IEnumerable<GrantPermission> GetByRoleId(int roleId);
-        
+        void DeleteByRoleId(int roleId);
     }
 }
