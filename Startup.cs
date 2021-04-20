@@ -51,6 +51,7 @@ namespace SouvenirShop
             services.AddScoped<IColorService, ColorService>();
             services.AddScoped<ISizeService, SizeService>();
             services.AddScoped<IPermissionService, PermissionService>();
+            services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<ISubCategoryService, SubCategoryService>();
             services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
