@@ -29,13 +29,15 @@ namespace Controllers
         [HttpPost("search")]
         public ActionResult<BaseSearchDto<SupplierDto>> GetAll([FromBody] BaseSearchDto<SupplierDto> searchDto) {
             var search = _supplierService.GetAll(searchDto);
+
             if (search == null) {
                 List<string> errorMessage = new List<string>();
                 errorMessage.Add("Đã phát sinh lỗi, vui lòng thử lại");
                 return BadRequest(new ResponseDto(errorMessage, 500, search));
             }
+            
             List<string> successMessage = new List<string>();
-            successMessage.Add("Lấy danh mục con hàng hoá thành công");
+            successMessage.Add("Lấy danh sách nhà cung cấp thành công");
             var responseDto = new ResponseDto(successMessage, 200, search);
             return Ok(responseDto);
         }

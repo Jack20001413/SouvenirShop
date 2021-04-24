@@ -25,7 +25,7 @@ namespace Infrastructure.Persistence
                 currentPage = searchDto.currentPage,
                 pagingRange = searchDto.pagingRange,
                 recordOfPage = searchDto.recordOfPage,
-                totalRecords = searchDto.totalRecords,
+                totalRecords = supplierSearch.totalRecords,
                 result = supplierSearch.result.ToList()
             };
         }
