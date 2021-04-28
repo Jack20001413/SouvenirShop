@@ -123,6 +123,7 @@ namespace Application.Services
         public EmployeeDto GetEmployee(int id)
         {
             var employee = employeeRepository.GetById(id);
+            employee.Role = _roleRepository.GetById(employee.RoleId);
             if(employee == null)
                 return null;
             return _mapper.Map<EmployeeDto>(employee);   

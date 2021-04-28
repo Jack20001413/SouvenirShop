@@ -11,7 +11,7 @@ namespace SouvenirShop.Domain.Entities
         public string Password { get; set; }
         public string Address { get; set; }
         public DateTime BirthDate { get; set; }
-        public string IsValid { get; set; }
+        public bool IsValid { get; set; }
 
         public virtual ICollection<SellingOrder> SellingOrders { get; set; }
     }

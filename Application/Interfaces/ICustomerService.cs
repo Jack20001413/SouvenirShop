@@ -13,5 +13,6 @@ namespace Application.Interfaces
         bool CustomerExists(int id); 
         BaseSearchDto<CustomerDto> GetAll(BaseSearchDto<CustomerDto> searchDto);
         List<CustomerDto> GetLikeName(string name);
+        CustomerDto ChangeAccountState(int id);
     }
 }

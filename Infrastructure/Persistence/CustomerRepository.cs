@@ -38,5 +38,6 @@ namespace Infrastructure.Persistence
             var customers = _db.Customers.Where(c => c.Name.Contains(name));
             return customers.ToList();
         }
+
     }
 }

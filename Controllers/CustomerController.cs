@@ -78,6 +78,7 @@ namespace Controllers
 
         [HttpPost("insert")]
         public ActionResult<CustomerDto> CreateCustomer([FromBody] CustomerDto customer){
+            customer.IsValid = false;
             var customerDto = _customerService.CreateCustomer(customer);
 
             if (customerDto == null) {
@@ -117,6 +118,21 @@ namespace Controllers
             }
             List<string> successMessage = new List<string>();
             successMessage.Add("Xoá thành công");
+            var responseDto = new ResponseDto(successMessage, 200, "");
+            return Ok(responseDto);
+        }
+
+        [HttpPut("change-account-state")]
+        public ActionResult<CustomerDto> ChangeAccountState([FromBody] CustomerDto customer){
+            var customerDto = _customerService.ChangeAccountState(customer.Id);
+
+            if(customerDto == null){
+                List<string> errorMessage = new List<string>();
+                errorMessage.Add("Đã phát sinh lỗi, vui lòng thử lại");
+                return NotFound(new ResponseDto(errorMessage, 500, ""));
+            }
+            List<string> successMessage = new List<string>();
+            successMessage.Add("Thay đổi trạng thái thành công");
             var responseDto = new ResponseDto(successMessage, 200, "");
             return Ok(responseDto);
         }

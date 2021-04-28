@@ -98,5 +98,23 @@ namespace Application.Services
             }
             return customerDto;
         }
+
+        public CustomerDto ChangeAccountState(int id)
+        {
+            var customer = _repo.GetById(id);
+
+            if(customer.IsValid == false){
+                customer.IsValid = true;
+            }else{
+                customer.IsValid = false;
+            }
+
+            int res = _repo.Update(customer);
+
+            if(res <= 0){
+                return null;
+            }
+            return _mapper.Map<CustomerDto>(customer);
+        }
     }
 }

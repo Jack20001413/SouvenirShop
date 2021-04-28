@@ -25,7 +25,7 @@ namespace Application.DTOs
         public DateTime BirthDate { get; set; }
 
         [Required]
-        public string IsValid { get; set; }
+        public bool IsValid { get; set; }
 
     }
 }

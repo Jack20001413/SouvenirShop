@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Application.DTOs;
 using Application.Interfaces;
@@ -83,6 +84,7 @@ namespace Controllers
         public ActionResult<EmployeeDto> CreateEmployee([FromBody] EmployeeDto employee){
             employee.RoleId = employee.Role.Id;
             employee.Role = null;
+            employee.BirthDate = DateTime.Parse(employee.BirthDate + "");
 
             var employeeDto = _employeeService.CreateEmployee(employee);
 

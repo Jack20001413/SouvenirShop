@@ -50,6 +50,7 @@ namespace SouvenirShop
             services.AddScoped<ISupplierRepository, SupplierRepository>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddScoped<IGrantPermissionRepository, GrantPermissionRepository>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
 
             // Architecture's Application Services
             services.AddScoped<IColorService, ColorService>();
@@ -62,6 +63,7 @@ namespace SouvenirShop
             services.AddScoped<IGrantPermissionRepository, GrantPermissionRepository>();
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<ISupplierService, SupplierService>();
+            services.AddScoped<ICustomerService, CustomerService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
