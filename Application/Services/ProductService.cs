@@ -84,7 +84,6 @@ namespace Application.Services
         public ProductDto GetProduct(int id)
         {
             var product = _productRepo.GetById(id);
-            product.SubCategory = _subCategoryRepo.GetById(product.SubCategoryId);
             return _mapper.Map<ProductDto>(product);
         }
 
