@@ -32,7 +32,7 @@ namespace Infrastructure.Persistence
         }
 
         public List<SubCategory> GetLikeName(string name) {
-            var subCategories = _db.SubCategories.Include(s => s.Category).Where(c => c.Name.Contains(name));
+            var subCategories = _db.SubCategories.Where(c => c.Name.Contains(name));
             return subCategories.ToList();
         }
     }
