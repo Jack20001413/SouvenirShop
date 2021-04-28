@@ -72,39 +72,6 @@ namespace Infrastructure.Persistence
                     Id = 4,
                     Code = "SUPPLIER_MANAGEMENT",
                     Description = "Quản lý nhà cung cấp"
-                },
-                new Permission{
-                    Id = 5,
-                    Code = "TRANSACTION_MANAGEMENT",
-                    Description = "Quản lý hoạt động giao dịch"
-                }
-            );
-
-            modelBuilder.Entity<GrantPermission>().HasData(
-                new GrantPermission{
-                    Id = 1,
-                    RoleId = 1,
-                    PermissionId = 1
-                },
-                new GrantPermission{
-                    Id = 2,
-                    RoleId = 1,
-                    PermissionId = 2
-                },
-                new GrantPermission{
-                    Id = 3,
-                    RoleId = 1,
-                    PermissionId = 3
-                },
-                new GrantPermission{
-                    Id = 4,
-                    RoleId = 1,
-                    PermissionId = 4
-                },
-                new GrantPermission{
-                    Id = 5,
-                    RoleId = 1,
-                    PermissionId = 5
                 }
             );
         }

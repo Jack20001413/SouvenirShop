@@ -56,6 +56,7 @@ namespace SouvenirShop
             services.AddScoped<IProductDetailRepository, ProductDetailRepository>();
             services.AddScoped<IImportingOrderRepository, ImportingOrderRepository>();
             services.AddScoped<IImportingTransactionRepository, ImportingTransactionRepository>();
+
             // Architecture's Application Services
             services.AddScoped<IColorService, ColorService>();
             services.AddScoped<ISizeService, SizeService>();

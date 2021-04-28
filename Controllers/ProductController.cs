@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Application.DTOs;
-using Application.Interfaces;
 using Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,9 +9,9 @@ namespace Controllers
     [Route("api/{controller}")]
     public class ProductController : ControllerBase
     {
-        private readonly IProductService _productService;
+        private readonly ProductService _productService;
 
-        public ProductController(IProductService productService)
+        public ProductController(ProductService productService)
         {
             _productService = productService;
         }
