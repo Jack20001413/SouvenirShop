@@ -10,12 +10,14 @@ namespace Application.Services
     public class CategoryService : ICategoryService
     {
         private readonly ICategoryRepository _repo;
+        private readonly ISubCategoryRepository _subCategoryRepo;
         private readonly IMapper _mapper;
 
-        public CategoryService(ICategoryRepository repo, IMapper mapper)
+        public CategoryService(ICategoryRepository repo, ISubCategoryRepository subCategoryRepo, IMapper mapper)
         {
             _repo = repo;
             _mapper = mapper;
+            _subCategoryRepo = subCategoryRepo;
         }
 
         public bool CategoryExists(int id)
@@ -54,10 +56,21 @@ namespace Application.Services
             return _mapper.Map<CategoryDto>(category);
         }
 
-        public IEnumerable<CategoryDto> GetAll()
+        public IEnumerable<CategoryFullDto> GetAll()
         {
             var categories = _repo.GetAll();
-            return _mapper.Map<IEnumerable<CategoryDto>>(categories);
+            var categoryFullDtos = _mapper.Map<IEnumerable<CategoryFullDto>>(categories);
+            var subCategories = _subCategoryRepo.GetAll();
+            var subCategoryDtos = _mapper.Map<IEnumerable<SubCategoryDto>>(subCategories);
+            foreach (CategoryFullDto c in categoryFullDtos) {
+                c.SubCategories = new List<SubCategoryDto>();
+                foreach (SubCategoryDto s in subCategoryDtos) {
+                    if (c.Id == s.Category.Id) {
+                        c.SubCategories.Add(s);
+                    }
+                }
+            }
+            return categoryFullDtos;
         }
 
         public BaseSearchDto<CategoryDto> GetAll(BaseSearchDto<CategoryDto> searchDto) {
