@@ -19,10 +19,15 @@ namespace Controllers
         [HttpGet]
         public ActionResult<IEnumerable<CategoryDto>> GetAll(){
             var categories = _categoryService.GetAll();
-            if( categories == null){
-                return NotFound("Empty list");
+            if (categories == null) {
+                List<string> errorMessage = new List<string>();
+                errorMessage.Add("Đã phát sinh lỗi, vui lòng thử lại");
+                return BadRequest(new ResponseDto(errorMessage, 500, categories));
             }
-            return Ok(categories);
+            List<string> successMessage = new List<string>();
+            successMessage.Add("Lấy danh mục hàng hoá thành công");
+            var responseDto = new ResponseDto(successMessage, 200, categories);
+            return Ok(responseDto);
         }
 
         [HttpPost("search")]
