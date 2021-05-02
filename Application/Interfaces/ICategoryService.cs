@@ -5,7 +5,7 @@ namespace Application.Interfaces
 {
     public interface ICategoryService
     {
-        IEnumerable<CategoryDto> GetAll();
+        IEnumerable<CategoryFullDto> GetAll();
         BaseSearchDto<CategoryDto> GetAll(BaseSearchDto<CategoryDto> searchDto);
         List<CategoryDto> GetLikeName(string name);
         CategoryDto GetCategory(int id);

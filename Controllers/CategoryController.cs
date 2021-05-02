@@ -17,7 +17,7 @@ namespace Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<CategoryDto>> GetAll(){
+        public ActionResult<IEnumerable<CategoryFullDto>> GetAll(){
             var categories = _categoryService.GetAll();
             if (categories == null) {
                 List<string> errorMessage = new List<string>();
