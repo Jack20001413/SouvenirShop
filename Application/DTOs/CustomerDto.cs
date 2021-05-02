@@ -23,6 +23,9 @@ namespace Application.DTOs
         [Required]
         [DataType(DataType.DateTime)]
         public DateTime BirthDate { get; set; }
+    
+        [Required]
+        public string Phone { get; set; }
 
         [Required]
         public bool IsValid { get; set; }
