@@ -10,6 +10,8 @@ namespace Application.Profiles
         {
             CreateMap<Category, CategoryDto>();
             CreateMap<CategoryDto, Category>();
+            CreateMap<Category, CategoryFullDto>();
+            CreateMap<CategoryFullDto, Category>();
         }
     }
 }
