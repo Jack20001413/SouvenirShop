@@ -136,5 +136,21 @@ namespace Controllers
             var responseDto = new ResponseDto(successMessage, 200, "");
             return Ok(responseDto);
         }
+
+        [HttpPost("login")]
+        public ActionResult<CustomerDto> Login([FromBody] CustomerDto customer){
+            var customerDto = _customerService.Login(customer.Email, customer.Password);
+
+            if(customerDto == null){
+                List<string> errorMessage = new List<string>();
+                errorMessage.Add("Tài khoản hoặc mật khẩu không hợp lệ, vui lòng thử lại");
+                return NotFound(new ResponseDto(errorMessage, 500, ""));
+            }
+
+            List<string> successMessage = new List<string>();
+            successMessage.Add("Đăng nhập thành công");
+            var responseDto = new ResponseDto(successMessage, 200, "");
+            return Ok(responseDto);
+        }
     }
 }

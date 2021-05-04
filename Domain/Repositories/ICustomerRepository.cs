@@ -10,5 +10,6 @@ namespace Domain.Repositories
         IEnumerable<Customer> GetAll();
         BaseSearchDto<Customer> GetAll(BaseSearchDto<CustomerDto> search);
         List<Customer> GetLikeName(string name);
+        Customer Login(string email, string password);
     }
 }
