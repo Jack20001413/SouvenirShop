@@ -20,6 +20,12 @@ namespace Infrastructure.Persistence.Config
                 .IsRequired()
                 .IsUnicode();
 
+            builder.Property(p => p.ImageUrl)
+                .IsUnicode();
+
+            builder.Property(d => d.SellingPrice)
+                .IsRequired();
+
             builder.HasOne(p => p.SubCategory)
                 .WithMany(s => s.Products)
                 .HasForeignKey(p => p.SubCategoryId);
