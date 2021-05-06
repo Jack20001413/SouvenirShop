@@ -78,7 +78,7 @@ namespace Controllers
 
         [HttpPost("insert")]
         public ActionResult<CustomerDto> CreateCustomer([FromBody] CustomerDto customer){
-            customer.IsValid = false;
+            customer.IsValid = true;
             var customerDto = _customerService.CreateCustomer(customer);
 
             if (customerDto == null) {
@@ -138,18 +138,18 @@ namespace Controllers
         }
 
         [HttpPost("login")]
-        public ActionResult<CustomerDto> Login([FromBody] CustomerDto customer){
-            var customerDto = _customerService.Login(customer.Email, customer.Password);
+        public ActionResult<CustomerDto> Login([FromBody] LoginDto login){
+            var response = _customerService.Login(login.Username, login.Password);
 
-            if(customerDto == null){
+            if(response == null){
                 List<string> errorMessage = new List<string>();
                 errorMessage.Add("Tài khoản hoặc mật khẩu không hợp lệ, vui lòng thử lại");
-                return NotFound(new ResponseDto(errorMessage, 500, ""));
+                return NotFound(new ResponseDto(errorMessage, 500, response));
             }
 
             List<string> successMessage = new List<string>();
             successMessage.Add("Đăng nhập thành công");
-            var responseDto = new ResponseDto(successMessage, 200, "");
+            var responseDto = new ResponseDto(successMessage, 200, response);
             return Ok(responseDto);
         }
     }

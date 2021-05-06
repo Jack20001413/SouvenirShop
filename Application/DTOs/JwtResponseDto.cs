@@ -26,5 +26,16 @@ namespace Application.DTOs
             Token = token;
             Type = "Bearer";
         }
+
+        public JwtResponseDto(CustomerDto customer, string token)
+        {
+            User = new UserDto();
+            User.Id = customer.Id;
+            User.Name = customer.Name;
+            User.Username = customer.Email;
+            User.Permissions = new List<string>();
+            Token = token;
+            Type = "Bearer";
+        }
     }
 }
