@@ -7,8 +7,6 @@ namespace Application.DTOs
     {
         [Key]
         public int Id { get; set; }
-
-        [Required]
         public string Name { get; set; }
 
         [ForeignKey(nameof(CategoryDto))]

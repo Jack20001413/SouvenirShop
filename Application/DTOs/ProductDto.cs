@@ -7,16 +7,12 @@ namespace Application.DTOs
     {
         [Key]
         public int Id { get; set; }
-
-        [Required]
         public string Name { get; set; }
-
-        [Required]
         public int Quantity { get; set; }
-
-        [Required]
         public string Description { get; set; }
-
+        public string ImageUrl { get; set; }
+        public int SellingPrice { get; set; }
+        
         [ForeignKey(nameof(SubCategoryDto))]
         public int SubCategoryId { get; set; }
         public virtual SubCategoryDto SubCategory { get; set; }
