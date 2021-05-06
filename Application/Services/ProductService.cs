@@ -81,6 +81,12 @@ namespace Application.Services
             return _mapper.Map<List<ProductDto>>(products);
         }
 
+        public List<ProductDto> GetList(int id)
+        {
+            var products = _productRepo.GetList(id);
+            return _mapper.Map<List<ProductDto>>(products);
+        }
+
         public ProductDto GetProduct(int id)
         {
             var product = _productRepo.GetById(id);

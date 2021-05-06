@@ -13,5 +13,6 @@ namespace Application.Interfaces
         bool ProductExists(int id);
         BaseSearchDto<ProductDto> GetAll(BaseSearchDto<ProductDto> searchDto);
         List<ProductDto> GetLikeName(string name);
+        List<ProductDto> GetList(int id);
     }
 }

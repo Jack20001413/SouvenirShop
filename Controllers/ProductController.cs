@@ -131,5 +131,21 @@ namespace Controllers
             var responseDto = new ResponseDto(successMessage, 200, "");
             return Ok(responseDto);
         }
+
+        [HttpGet("get-list/{id: int}")]
+        public ActionResult<IEnumerable<ProductDto>> GetList(int id){
+            var productDtos = _productService.GetList(id);
+
+            if (productDtos == null) {
+                List<string> errorMessage = new List<string>();
+                errorMessage.Add("Đã phát sinh lỗi, vui lòng thử lại");
+                return BadRequest(new ResponseDto(errorMessage, 500, productDtos));
+            }
+
+            List<string> successMessage = new List<string>();
+            successMessage.Add("Lấy danh sách sản phẩm thành công");
+            var responseDto = new ResponseDto(successMessage, 200, productDtos);
+            return Ok(responseDto);
+        }
     }
 }
