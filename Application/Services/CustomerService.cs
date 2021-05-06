@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Application.DTOs;
 using Application.Interfaces;
@@ -115,12 +114,6 @@ namespace Application.Services
             if(res <= 0){
                 return null;
             }
-            return _mapper.Map<CustomerDto>(customer);
-        }
-
-        public CustomerDto Login(string email, string password){
-            var customer = _repo.Login(email, password);
-
             return _mapper.Map<CustomerDto>(customer);
         }
     }

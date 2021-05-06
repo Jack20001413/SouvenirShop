@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using Application.DTOs;
 using Domain.Repositories;
@@ -38,11 +37,6 @@ namespace Infrastructure.Persistence
         {
             var customers = _db.Customers.Where(c => c.Name.Contains(name));
             return customers.ToList();
-        }
-
-        public Customer Login(string email, string password){
-            var customer = _db.Customers.Where(s => s.Email == email).Where(s => s.Password == password);
-            return customer.FirstOrDefault();
         }
 
     }
