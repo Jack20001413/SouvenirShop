@@ -14,11 +14,7 @@ namespace Infrastructure.Persistence
         {
         }
 
-        public IEnumerable<ProductDetail> GetAll()
-        {
-            return _db.ProductDetails.Include(p => p.Product).Include(p => p.Color)
-                .Include(p => p.Size).ToList();
-        }
+        
          public BaseSearchDto<ProductDetail> GetAll(BaseSearchDto<ProductDetailDto> search)
         {
             var productSearch = _db.ProductDetails.Paginate(search.currentPage, search.recordOfPage);
@@ -30,6 +26,11 @@ namespace Infrastructure.Persistence
                 totalRecords = productSearch.totalRecords,
                 result = productSearch.result.ToList()
             };
+        }
+        public IEnumerable<ProductDetail> GetAll()
+        {
+            return _db.ProductDetails.Include(p => p.Product).Include(p => p.Color)
+                .Include(p => p.Size).ToList();
         }
     }
 }

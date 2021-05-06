@@ -27,6 +27,7 @@ namespace Controllers
                 errorMessage.Add("Đã phát sinh lỗi, vui lòng thử lại");
                 return BadRequest(new ResponseDto(errorMessage, 500, productdetails));
             }
+            
 
             List<string> successMessage = new List<string>();
             successMessage.Add("Lấy danh mục con hàng hoá thành công");

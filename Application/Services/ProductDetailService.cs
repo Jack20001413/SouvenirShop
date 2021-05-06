@@ -73,6 +73,7 @@ namespace Application.Services
             };
             return productdetailDtoSearch;
         }
+        
         public ProductDetailDto GetProductDetail(int id)
         {
             var detail = _repo.GetById(id);
