@@ -6,6 +6,7 @@ namespace Application.Interfaces
     public interface IProductDetailService
     {
         IEnumerable<ProductDetailDto> GetAll();
+        BaseSearchDto<ProductDetailDto> GetAll(BaseSearchDto<ProductDetailDto> searchDto);
         ProductDetailDto GetProductDetail(int id);
         ProductDetailDto CreateProductDetail(ProductDetailDto productDetailDto);
         ProductDetailDto UpdateProductDetail(ProductDetailDto productDetailDto);

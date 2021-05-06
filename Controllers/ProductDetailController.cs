@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Application.DTOs;
-using Application.Services;
+using Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -11,9 +11,9 @@ namespace Controllers
     [Route("api/{controller}")]
     public class ProductDetailController : ControllerBase
     {
-        private readonly ProductDetailService _productdetailService;
+        private readonly IProductDetailService _productdetailService;
 
-        public ProductDetailController(ProductDetailService productdetailService)
+        public ProductDetailController(IProductDetailService productdetailService)
         {
             _productdetailService = productdetailService;
         }
@@ -69,6 +69,10 @@ namespace Controllers
 
         [HttpPost("insert")]
         public ActionResult<ProductDetailDto> CreateProductDetail([FromBody] ProductDetailDto productdetail){
+            productdetail.SizeId = productdetail.Size.Id;
+            productdetail.Size = null;
+            productdetail.ColorId = productdetail.Color.Id;
+            productdetail.Color = null;
             productdetail.ProductId = productdetail.Product.Id;
             productdetail.Product = null;
 
@@ -88,6 +92,13 @@ namespace Controllers
 
         [HttpPut("update")]
         public ActionResult<ProductDetailDto> UpdateProductDetail([FromBody] ProductDetailDto productdetail){
+            productdetail.SizeId = productdetail.Size.Id;
+            productdetail.Size = null;
+            productdetail.ColorId = productdetail.Color.Id;
+            productdetail.Color = null;
+            productdetail.ProductId = productdetail.Product.Id;
+            productdetail.Product = null;
+            
             var productdetailDto = _productdetailService.UpdateProductDetail(productdetail);
 
             if (productdetailDto == null) {

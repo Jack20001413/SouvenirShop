@@ -9,9 +9,9 @@ namespace Application.Interfaces
         BaseSearchDto<CategoryDto> GetAll(BaseSearchDto<CategoryDto> searchDto);
         List<CategoryDto> GetLikeName(string name);
         CategoryDto GetCategory(int id);
-         CategoryDto CreateCategory(CategoryDto categoryDto);
-         CategoryDto UpdateCategory(CategoryDto categoryDto);
-         CategoryDto DeleteCategory(int id);
-         bool CategoryExists(int id); 
+        CategoryDto CreateCategory(CategoryDto categoryDto);
+        CategoryDto UpdateCategory(CategoryDto categoryDto);
+        CategoryDto DeleteCategory(int id);
+        bool CategoryExists(int id); 
     }
 }

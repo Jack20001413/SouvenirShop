@@ -30,5 +30,10 @@ namespace Infrastructure.Persistence
                 result = colorSearch.result.ToList()
             };
         }
+
+        public List<Color> GetLikeName(string name) {
+            var colors = _db.Colors.Where(c => c.Name.Contains(name));
+            return colors.ToList();
+        }
     }
 }

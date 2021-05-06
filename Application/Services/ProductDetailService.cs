@@ -13,11 +13,17 @@ namespace Application.Services
         private readonly IProductDetailRepository _repo;
         private readonly IMapper _mapper;
         private readonly IProductRepository _productRepo;
+        private readonly IColorRepository _colorRepo;
+        private readonly ISizeRepository _sizeRepo;
         
 
-        public ProductDetailService(IProductDetailRepository repo, IMapper mapper)
+        public ProductDetailService(IProductDetailRepository repo, IProductRepository productRepo,
+        IColorRepository colorRepo, ISizeRepository sizeRepo, IMapper mapper)
         {
             _repo = repo;
+            _colorRepo = colorRepo;
+            _sizeRepo = sizeRepo;
+            _productRepo = productRepo;
             _mapper = mapper;
         }
 
@@ -55,10 +61,14 @@ namespace Application.Services
         public BaseSearchDto<ProductDetailDto> GetAll(BaseSearchDto<ProductDetailDto> searchDto)
         {
             var productdetailSearch = _repo.GetAll(searchDto);
-            var products = _productRepo.GetAll().ToList();
 
+            var colors = _colorRepo.GetAll().ToList();
+            var sizes = _sizeRepo.GetAll().ToList();
+            var products = _productRepo.GetAll().ToList();
             foreach (ProductDetail c in productdetailSearch.result) {
                 c.Product = products.Where(s => s.Id == c.ProductId).FirstOrDefault();
+                c.Size = sizes.Where(s => s.Id == c.SizeId).FirstOrDefault();
+                c.Color = colors.Where(s => s.Id == c.ColorId).FirstOrDefault();
             }
 
             BaseSearchDto<ProductDetailDto> productdetailDtoSearch = new BaseSearchDto<ProductDetailDto>{
@@ -77,6 +87,9 @@ namespace Application.Services
         public ProductDetailDto GetProductDetail(int id)
         {
             var detail = _repo.GetById(id);
+            detail.Color = _colorRepo.GetById(detail.ColorId);
+            detail.Size = _sizeRepo.GetById(detail.SizeId);
+            detail.Product = _productRepo.GetById(detail.ProductId);
             return _mapper.Map<ProductDetailDto>(detail);
         }
 

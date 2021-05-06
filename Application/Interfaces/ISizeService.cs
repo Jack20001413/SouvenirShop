@@ -7,6 +7,7 @@ namespace Application.Interfaces
     {
         IEnumerable<SizeDto> GetAll();
         BaseSearchDto<SizeDto> GetAll(BaseSearchDto<SizeDto> searchDto);
+        List<SizeDto> GetLikeName(string name);
         SizeDto GetSize(int id);
         SizeDto CreateSize(SizeDto sizeDto);
         SizeDto UpdateSize(SizeDto sizeDto);

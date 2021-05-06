@@ -65,6 +65,11 @@ namespace Application.Services
             return sizeDtoSearch;
         }
 
+        public List<SizeDto> GetLikeName(string name) {
+            var sizes = _repo.GetLikeName(name);
+            return _mapper.Map<List<SizeDto>>(sizes);
+        }
+
         public SizeDto GetSize(int id)
         {
             var size = _repo.GetById(id);

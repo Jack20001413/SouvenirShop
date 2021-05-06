@@ -39,5 +39,9 @@ namespace Infrastructure.Persistence
             return customers.ToList();
         }
 
+        public Customer Login(string email, string password){
+            var customer = _db.Customers.Where(s => s.Email == email).Where(s => s.Password == password);
+            return customer.FirstOrDefault();
+        }
     }
 }

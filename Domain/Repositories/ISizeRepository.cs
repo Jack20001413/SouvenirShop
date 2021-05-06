@@ -8,5 +8,6 @@ namespace Domain.Repositories
     {
         IEnumerable<Size> GetAll();
         BaseSearchDto<Size> GetAll(BaseSearchDto<SizeDto> search);
+        List<Size> GetLikeName(string name);
     }
 }

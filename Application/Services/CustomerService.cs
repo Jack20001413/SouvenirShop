@@ -8,7 +8,7 @@ using AutoMapper;
 using Domain.Repositories;
 using Microsoft.IdentityModel.Tokens;
 using SouvenirShop.Domain.Entities;
-
+using System;
 namespace Application.Services
 {
     public class CustomerService : ICustomerService
