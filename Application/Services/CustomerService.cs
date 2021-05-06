@@ -1,8 +1,12 @@
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using Application.DTOs;
 using Application.Interfaces;
 using AutoMapper;
 using Domain.Repositories;
+using Microsoft.IdentityModel.Tokens;
 using SouvenirShop.Domain.Entities;
 
 namespace Application.Services
@@ -115,6 +119,39 @@ namespace Application.Services
                 return null;
             }
             return _mapper.Map<CustomerDto>(customer);
+        }
+
+        public JwtResponseDto Login(string email, string password){
+            var customer = _repo.Login(email, password);
+
+             // var employee = employeeRepository.GetEmployeeByEmail(loginDto.Username);
+            // return null if user not found
+            if(customer == null || !customer.IsValid){
+                return null;
+            }
+
+            var customerDto = _mapper.Map<CustomerDto>(customer);
+
+
+            // authentication successful so generate jwt token
+            var token = generateJwtToken(customer);
+
+            return new JwtResponseDto(customerDto, token);
+        }
+
+        private string generateJwtToken(Customer user)
+        {
+            // generate token that is valid for 7 days
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes("This is Secret Key of Pun's House so dont share it desu ne");
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()) }),
+                Expires = DateTime.UtcNow.AddDays(7),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
         }
     }
 }

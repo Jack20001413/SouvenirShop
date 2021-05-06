@@ -14,5 +14,6 @@ namespace Application.Interfaces
         BaseSearchDto<CustomerDto> GetAll(BaseSearchDto<CustomerDto> searchDto);
         List<CustomerDto> GetLikeName(string name);
         CustomerDto ChangeAccountState(int id);
+        JwtResponseDto Login(string email, string password);
     }
 }

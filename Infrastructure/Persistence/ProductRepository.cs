@@ -37,5 +37,11 @@ namespace Infrastructure.Persistence
             var products = _db.Products.Where(c => c.Name.Contains(name));
             return products.ToList();
         }
+
+        public List<Product> GetList(int id)
+        {
+            var products = _db.Products.Where(p => p.SubCategoryId == id);
+            return products.ToList();
+        }
     }
 }

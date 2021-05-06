@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Application.DTOs;
+using Application.Interfaces;
 using Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,9 +10,9 @@ namespace Controllers
     [Route("api/{controller}")]
     public class ProductController : ControllerBase
     {
-        private readonly ProductService _productService;
+        private readonly IProductService _productService;
 
-        public ProductController(ProductService productService)
+        public ProductController(IProductService productService)
         {
             _productService = productService;
         }
@@ -128,6 +129,22 @@ namespace Controllers
             List<string> successMessage = new List<string>();
             successMessage.Add("Xoá thành công");
             var responseDto = new ResponseDto(successMessage, 200, "");
+            return Ok(responseDto);
+        }
+
+        [HttpGet("get-list/{id: int}")]
+        public ActionResult<IEnumerable<ProductDto>> GetList(int id){
+            var productDtos = _productService.GetList(id);
+
+            if (productDtos == null) {
+                List<string> errorMessage = new List<string>();
+                errorMessage.Add("Đã phát sinh lỗi, vui lòng thử lại");
+                return BadRequest(new ResponseDto(errorMessage, 500, productDtos));
+            }
+
+            List<string> successMessage = new List<string>();
+            successMessage.Add("Lấy danh sách sản phẩm thành công");
+            var responseDto = new ResponseDto(successMessage, 200, productDtos);
             return Ok(responseDto);
         }
     }
