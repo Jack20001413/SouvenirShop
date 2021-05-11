@@ -19,7 +19,8 @@ namespace Application.DTOs
 
 
         public int ImportingPrice { get; set; }
-
+        public string ImageUrl { get; set; }
+        
         [ForeignKey(nameof(ColorDto))]
         public int ColorId { get; set; }
         public virtual ColorDto Color { get; set; }

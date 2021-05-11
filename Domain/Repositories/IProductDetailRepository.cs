@@ -9,5 +9,6 @@ namespace Domain.Repositories
         IEnumerable<ProductDetail> GetAll();
         
         BaseSearchDto<ProductDetail> GetAll(BaseSearchDto<ProductDetailDto> search);
+        List<ProductDetail> GetByProduct(int productId);
     }
 }

@@ -32,5 +32,10 @@ namespace Infrastructure.Persistence
             return _db.ProductDetails.Include(p => p.Product).Include(p => p.Color)
                 .Include(p => p.Size).ToList();
         }
+
+        public List<ProductDetail> GetByProduct(int productId) {
+            var productDetails = _db.ProductDetails.Where(c => c.Product.Id == productId);
+            return productDetails.ToList();
+        }
     }
 }
