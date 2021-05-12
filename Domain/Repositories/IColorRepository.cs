@@ -8,5 +8,6 @@ namespace Domain.Repositories
     {
         IEnumerable<Color> GetAll();
         BaseSearchDto<Color> GetAll(BaseSearchDto<ColorDto> search);
+        List<Color> GetLikeName(string name);
     }
 }

@@ -9,6 +9,7 @@ namespace SouvenirShop.Domain.Entities
         public int Quantity { get; set; }
         public int SellingPrice { get; set; }
         public int ImportingPrice { get; set; }
+        public string ImageUrl { get; set; }
 
         public int ColorId { get; set; }
         public virtual Color Color { get; set; }

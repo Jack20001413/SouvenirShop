@@ -30,5 +30,10 @@ namespace Infrastructure.Persistence
                 result = sizeSearch.result.ToList()
             };
         }
+
+        public List<Size> GetLikeName(string name) {
+            var sizes = _db.Sizes.Where(c => c.Name.Contains(name));
+            return sizes.ToList();
+        }
     }
 }

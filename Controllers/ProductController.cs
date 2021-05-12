@@ -81,6 +81,22 @@ namespace Controllers
             return Ok(responseDto);
         }
 
+        [HttpGet("get-full/{id}")]
+        public ActionResult<ProductFullDto> GetProductFull(int id){
+            var product = _productService.GetProductFull(id);
+
+            if (product == null) {
+                List<string> errorMessage = new List<string>();
+                errorMessage.Add("Đã phát sinh lỗi, vui lòng thử lại");
+                return BadRequest(new ResponseDto(errorMessage, 500, product));
+            }
+
+            List<string> successMessage = new List<string>();
+            successMessage.Add("Lấy thông tin thành công");
+            var responseDto = new ResponseDto(successMessage, 200, product);
+            return Ok(responseDto);
+        }
+
         [HttpPost("insert")]
         public ActionResult<ProductDto> CreateProduct([FromBody] ProductDto product){
             product.SubCategoryId = product.SubCategory.Id;
@@ -102,6 +118,9 @@ namespace Controllers
 
         [HttpPut("update")]
         public ActionResult<ProductDto> UpdateProduct([FromBody] ProductDto product){
+            product.SubCategoryId = product.SubCategory.Id;
+            product.SubCategory = null;
+            
             var productDto = _productService.UpdateProduct(product);
 
             if (productDto == null) {

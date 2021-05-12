@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using Application.DTOs;
 using Domain.Repositories;
@@ -44,6 +43,5 @@ namespace Infrastructure.Persistence
             var customer = _db.Customers.Where(s => s.Email == email).Where(s => s.Password == password);
             return customer.FirstOrDefault();
         }
-
     }
 }

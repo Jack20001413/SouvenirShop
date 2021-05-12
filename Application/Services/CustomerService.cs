@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -9,7 +8,7 @@ using AutoMapper;
 using Domain.Repositories;
 using Microsoft.IdentityModel.Tokens;
 using SouvenirShop.Domain.Entities;
-
+using System;
 namespace Application.Services
 {
     public class CustomerService : ICustomerService

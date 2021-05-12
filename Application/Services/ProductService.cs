@@ -13,12 +13,24 @@ namespace Application.Services
         private readonly IProductRepository _productRepo;
         private readonly IMapper _mapper;
         private readonly ISubCategoryRepository _subCategoryRepo;
+        private readonly IProductDetailRepository _productDetailRepo;
+        private readonly IColorRepository _colorRepo;
+        private readonly ISizeRepository _sizeRepo;
 
-        public ProductService(IProductRepository productRepo, IMapper mapper, ISubCategoryRepository subCategoryRepo)
+        public ProductService(
+            IProductRepository productRepo, 
+            IMapper mapper, 
+            ISubCategoryRepository subCategoryRepo, 
+            IProductDetailRepository productDetailRepo,
+            IColorRepository colorRepo,
+            ISizeRepository sizeRepo)
         {
             _productRepo = productRepo;
             _mapper = mapper;
             _subCategoryRepo = subCategoryRepo;
+            _productDetailRepo = productDetailRepo;
+            _colorRepo = colorRepo;
+            _sizeRepo = sizeRepo;
         }
 
         public ProductDto CreateProduct(ProductDto productDto)
@@ -92,6 +104,26 @@ namespace Application.Services
             var product = _productRepo.GetById(id);
             product.SubCategory = _subCategoryRepo.GetById(product.SubCategoryId);
             return _mapper.Map<ProductDto>(product);
+        }
+
+        public ProductFullDto GetProductFull(int id)
+        {
+            var product = _productRepo.GetById(id);
+            product.SubCategory = _subCategoryRepo.GetById(product.SubCategoryId);
+
+            var productFull = _mapper.Map<ProductFullDto>(product);
+            
+            var colors = _colorRepo.GetAll().ToList();
+            var sizes = _sizeRepo.GetAll().ToList();
+
+            var productDetails = _productDetailRepo.GetByProduct(id);
+            foreach (ProductDetail d in productDetails) {
+                d.Color = colors.Where(s => s.Id == d.ColorId).FirstOrDefault();
+                d.Size = sizes.Where(s => s.Id == d.SizeId).FirstOrDefault();
+            }
+            var productDetailDtos = _mapper.Map<List<ProductDetailDto>>(productDetails);
+            productFull.ProductDetails = productDetailDtos;
+            return productFull;
         }
 
         public bool ProductExists(int id)

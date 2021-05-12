@@ -70,6 +70,10 @@ namespace Application.Services
             return colorDtoSearch;
         }
 
+        public List<ColorDto> GetLikeName(string name) {
+            var colors = _repo.GetLikeName(name);
+            return _mapper.Map<List<ColorDto>>(colors);
+        }
 
         public ColorDto GetColor(int id)
         {

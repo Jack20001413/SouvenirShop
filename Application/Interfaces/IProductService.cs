@@ -7,6 +7,7 @@ namespace Application.Interfaces
     {
         IEnumerable<ProductDto> GetAll();
         ProductDto GetProduct(int id);
+        ProductFullDto GetProductFull(int id);
         ProductDto CreateProduct(ProductDto product);
         ProductDto UpdateProduct(ProductDto product);
         ProductDto DeleteProduct(int id);

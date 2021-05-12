@@ -39,6 +39,21 @@ namespace Controllers
             return Ok(responseDto);
         }
 
+        [HttpGet("get-like-name/{name}")]
+        public ActionResult<List<SizeDto>> GetLikeName(string name){
+            var sizes = _sizeService.GetLikeName(name);
+
+            if (sizes == null) {
+                List<string> errorMessage = new List<string>();
+                errorMessage.Add("Đã phát sinh lỗi, vui lòng thử lại");
+                return BadRequest(new ResponseDto(errorMessage, 500, sizes));
+            }
+            List<string> successMessage = new List<string>();
+            successMessage.Add("Lấy thông tin thành công");
+            var responseDto = new ResponseDto(successMessage, 200, sizes);
+            return Ok(responseDto);
+        }
+
         [HttpGet("{id}")]
         public ActionResult<SizeDto> GetASize(int id){
             var size = _sizeService.GetSize(id);

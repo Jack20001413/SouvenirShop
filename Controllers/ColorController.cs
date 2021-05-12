@@ -39,12 +39,27 @@ namespace Controllers
             return Ok(responseDto);
         }
 
+        [HttpGet("get-like-name/{name}")]
+        public ActionResult<List<ColorDto>> GetLikeName(string name){
+            var colors = _colorService.GetLikeName(name);
+
+            if (colors == null) {
+                List<string> errorMessage = new List<string>();
+                errorMessage.Add("Đã phát sinh lỗi, vui lòng thử lại");
+                return BadRequest(new ResponseDto(errorMessage, 500, colors));
+            }
+            List<string> successMessage = new List<string>();
+            successMessage.Add("Lấy thông tin thành công");
+            var responseDto = new ResponseDto(successMessage, 200, colors);
+            return Ok(responseDto);
+        }
+
         [HttpGet("{id}")]
         public ActionResult<ColorDto> GetAColor(int id){
             var color = _colorService.GetColor(id);
 
             if (color == null) {
-                List<string> errorMessage = new List<string>();
+                List<string> errorMessage = new List<string>(); 
                 errorMessage.Add("Đã phát sinh lỗi, vui lòng thử lại");
                 return BadRequest(new ResponseDto(errorMessage, 500, color));
             }

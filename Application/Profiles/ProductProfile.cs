@@ -10,6 +10,8 @@ namespace Application.Profiles
         {
             CreateMap<Product, ProductDto>();
             CreateMap<ProductDto, Product>();
+            CreateMap<ProductFullDto, Product>();
+            CreateMap<Product, ProductFullDto>();
         }
     }
 }

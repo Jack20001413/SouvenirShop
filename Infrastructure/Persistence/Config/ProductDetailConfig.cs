@@ -22,6 +22,9 @@ namespace Infrastructure.Persistence.Config
             builder.Property(d => d.ImportingPrice)
                 .IsRequired();
 
+            builder.Property(p => p.ImageUrl)
+                .IsUnicode();
+
             builder.HasOne(d => d.Size)
                 .WithMany(s => s.ProductDetails)
                 .HasForeignKey(d => d.SizeId);
