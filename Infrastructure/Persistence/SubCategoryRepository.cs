@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Application.DTOs;
 using SouvenirShop.Domain.Entities;
 using SouvenirShop.Helpers;
+using SouvenirShop.Domain.Entities.Common;
 
 namespace Infrastructure.Persistence
 {
@@ -34,6 +35,12 @@ namespace Infrastructure.Persistence
         public List<SubCategory> GetLikeName(string name) {
             var subCategories = _db.SubCategories.Where(c => c.Name.Contains(name));
             return subCategories.ToList();
+        }
+
+        public List<SubCategory> GetSubCategoryByCategoryId(int id)
+        {
+            var subCategory = _db.SubCategories.Where(c => c.CategoryId == id);
+            return subCategory.ToList();
         }
     }
 }

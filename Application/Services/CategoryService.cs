@@ -109,5 +109,17 @@ namespace Application.Services
             }
             return categoryDto;
         }
+
+        public IEnumerable<SubCategoryDto> GetSubCategories(int subCategoryId)
+        {
+            var category = _repo.GetCategoryBySubCategoryId(subCategoryId);
+            var subCategories = _repo.GetSubCategories(category.Id);
+            return _mapper.Map<IEnumerable<SubCategoryDto>>(subCategories);
+        }
+
+        public IEnumerable<SubCategoryDto> GetSubCategoriesByCategory(int categoryId){
+            var subCategories = _repo.GetSubCategories(categoryId);
+            return _mapper.Map<IEnumerable<SubCategoryDto>>(subCategories);
+        }
     }
 }

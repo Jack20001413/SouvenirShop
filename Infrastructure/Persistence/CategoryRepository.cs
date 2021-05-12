@@ -32,9 +32,22 @@ namespace Infrastructure.Persistence
             };
         }
 
+        public Category GetCategoryBySubCategoryId(int id)
+        {
+            var subCategory = _db.SubCategories.Find(id);
+            var category = _db.Categories.Find(subCategory.CategoryId);
+            return category;
+        }
+
         public List<Category> GetLikeName(string name) {
             var categories = _db.Categories.Where(c => c.Name.Contains(name));
             return categories.ToList();
+        }
+
+        public IEnumerable<SubCategory> GetSubCategories(int id)
+        {
+            var subCategories = _db.SubCategories.Where(c => c.CategoryId == id);
+            return subCategories.ToList();
         }
     }
 }

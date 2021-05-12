@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using Application.DTOs;
 using Domain.Repositories;
@@ -41,6 +42,12 @@ namespace Infrastructure.Persistence
         public List<Product> GetList(int id)
         {
             var products = _db.Products.Where(p => p.SubCategoryId == id);
+            return products.ToList();
+        }
+
+        public List<Product> GetListByCategory(List<string> subCategories)
+        {
+            var products = _db.Products.Where(p => subCategories.Contains(p.SubCategoryId.ToString()));
             return products.ToList();
         }
     }

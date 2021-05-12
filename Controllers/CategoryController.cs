@@ -118,5 +118,37 @@ namespace Controllers
             var responseDto = new ResponseDto(successMessage, 200, "");
             return Ok(responseDto);
         }
+
+        [HttpGet("get-subcategories/{id:int}")]
+        public ActionResult<IEnumerable<SubCategoryDto>> GetSubcategories(int id){
+            var SubCategoryDtos = _categoryService.GetSubCategories(id);
+
+            if (SubCategoryDtos == null) {
+                List<string> errorMessage = new List<string>();
+                errorMessage.Add("Đã phát sinh lỗi, vui lòng thử lại");
+                return BadRequest(new ResponseDto(errorMessage, 500, SubCategoryDtos));
+            }
+
+            List<string> successMessage = new List<string>();
+            successMessage.Add("Lấy danh sách danh mục sản phẩm thành công");
+            var responseDto = new ResponseDto(successMessage, 200, SubCategoryDtos);
+            return Ok(responseDto);
+        }
+
+        [HttpGet("get-subcategories-by-category/{id:int}")]
+        public ActionResult<IEnumerable<SubCategoryDto>> GetSubcategoriesByCategory(int id){
+            var SubCategoryDtos = _categoryService.GetSubCategoriesByCategory(id);
+
+            if (SubCategoryDtos == null) {
+                List<string> errorMessage = new List<string>();
+                errorMessage.Add("Đã phát sinh lỗi, vui lòng thử lại");
+                return BadRequest(new ResponseDto(errorMessage, 500, SubCategoryDtos));
+            }
+
+            List<string> successMessage = new List<string>();
+            successMessage.Add("Lấy danh sách danh mục sản phẩm thành công");
+            var responseDto = new ResponseDto(successMessage, 200, SubCategoryDtos);
+            return Ok(responseDto);
+        }
     }
 }

@@ -14,5 +14,6 @@ namespace Application.Interfaces
         BaseSearchDto<ProductDto> GetAll(BaseSearchDto<ProductDto> searchDto);
         List<ProductDto> GetLikeName(string name);
         List<ProductDto> GetList(int id);
+        List<ProductDto> GetListByCategory(int id);
     }
 }
