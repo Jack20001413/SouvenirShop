@@ -111,6 +111,12 @@ namespace Application.Services
             return _mapper.Map<List<ProductDto>>(productList);
         }
 
+        public ProductDto GetProduct(int id)
+        {
+            var product = _productRepo.GetById(id);
+            product.SubCategory = _subCategoryRepo.GetById(product.SubCategoryId);
+            return _mapper.Map<ProductDto>(product);
+        }
 
         public bool ProductExists(int id)
         {
@@ -135,7 +141,7 @@ namespace Application.Services
         public ProductFullDto GetProductFull(int id){
             var product = _productRepo.GetById(id);
             product.SubCategory = _subCategoryRepo.GetById(product.SubCategoryId);
-
+            
             var productFull = _mapper.Map<ProductFullDto>(product);
             
             var colors = _colorRepo.GetAll().ToList();
