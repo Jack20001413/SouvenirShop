@@ -10,5 +10,6 @@ namespace Domain.Repositories
         BaseSearchDto<Product> GetAll(BaseSearchDto<ProductDto> search);
         List<Product> GetLikeName(string name);
         List<Product> GetList(int id);
+        List<Product> GetListByCategory(List<string> subCategories);
     }
 }

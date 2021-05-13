@@ -13,24 +13,12 @@ namespace Application.Services
         private readonly IProductRepository _productRepo;
         private readonly IMapper _mapper;
         private readonly ISubCategoryRepository _subCategoryRepo;
-        private readonly IProductDetailRepository _productDetailRepo;
-        private readonly IColorRepository _colorRepo;
-        private readonly ISizeRepository _sizeRepo;
 
-        public ProductService(
-            IProductRepository productRepo, 
-            IMapper mapper, 
-            ISubCategoryRepository subCategoryRepo, 
-            IProductDetailRepository productDetailRepo,
-            IColorRepository colorRepo,
-            ISizeRepository sizeRepo)
+        public ProductService(IProductRepository productRepo, IMapper mapper, ISubCategoryRepository subCategoryRepo)
         {
             _productRepo = productRepo;
             _mapper = mapper;
             _subCategoryRepo = subCategoryRepo;
-            _productDetailRepo = productDetailRepo;
-            _colorRepo = colorRepo;
-            _sizeRepo = sizeRepo;
         }
 
         public ProductDto CreateProduct(ProductDto productDto)
@@ -99,31 +87,22 @@ namespace Application.Services
             return _mapper.Map<List<ProductDto>>(products);
         }
 
+        public List<ProductDto> GetListByCategory(int id)
+        {
+            List<string> ids = new List<string>();
+            var subCategories = _subCategoryRepo.GetSubCategoryByCategoryId(id);
+            foreach (SubCategory subCategory in subCategories){
+                ids.Add(subCategory.Id.ToString());
+            }
+            var productList = _productRepo.GetListByCategory(ids);
+            return _mapper.Map<List<ProductDto>>(productList);
+        }
+
         public ProductDto GetProduct(int id)
         {
             var product = _productRepo.GetById(id);
             product.SubCategory = _subCategoryRepo.GetById(product.SubCategoryId);
             return _mapper.Map<ProductDto>(product);
-        }
-
-        public ProductFullDto GetProductFull(int id)
-        {
-            var product = _productRepo.GetById(id);
-            product.SubCategory = _subCategoryRepo.GetById(product.SubCategoryId);
-
-            var productFull = _mapper.Map<ProductFullDto>(product);
-            
-            var colors = _colorRepo.GetAll().ToList();
-            var sizes = _sizeRepo.GetAll().ToList();
-
-            var productDetails = _productDetailRepo.GetByProduct(id);
-            foreach (ProductDetail d in productDetails) {
-                d.Color = colors.Where(s => s.Id == d.ColorId).FirstOrDefault();
-                d.Size = sizes.Where(s => s.Id == d.SizeId).FirstOrDefault();
-            }
-            var productDetailDtos = _mapper.Map<List<ProductDetailDto>>(productDetails);
-            productFull.ProductDetails = productDetailDtos;
-            return productFull;
         }
 
         public bool ProductExists(int id)
