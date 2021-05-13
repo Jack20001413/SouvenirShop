@@ -65,21 +65,21 @@ namespace Controllers
             return Ok(responseDto);
         }
 
-        [HttpGet("{id}")]
-        public ActionResult<ProductDto> GetAProduct(int id){
-            var product = _productService.GetProduct(id);
+        // [HttpGet("{id}")]
+        // public ActionResult<ProductDto> GetAProduct(int id){
+        //     var product = _productService.GetProduct(id);
 
-            if (product == null) {
-                List<string> errorMessage = new List<string>();
-                errorMessage.Add("Đã phát sinh lỗi, vui lòng thử lại");
-                return BadRequest(new ResponseDto(errorMessage, 500, product));
-            }
+        //     if (product == null) {
+        //         List<string> errorMessage = new List<string>();
+        //         errorMessage.Add("Đã phát sinh lỗi, vui lòng thử lại");
+        //         return BadRequest(new ResponseDto(errorMessage, 500, product));
+        //     }
 
-            List<string> successMessage = new List<string>();
-            successMessage.Add("Lấy thông tin thành công");
-            var responseDto = new ResponseDto(successMessage, 200, product);
-            return Ok(responseDto);
-        }
+        //     List<string> successMessage = new List<string>();
+        //     successMessage.Add("Lấy thông tin thành công");
+        //     var responseDto = new ResponseDto(successMessage, 200, product);
+        //     return Ok(responseDto);
+        // }
 
         [HttpGet("get-full/{id}")]
         public ActionResult<ProductFullDto> GetProductFull(int id){
