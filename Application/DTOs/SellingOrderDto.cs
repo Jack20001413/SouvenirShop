@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -31,5 +32,6 @@ namespace Application.DTOs
         [ForeignKey(nameof(CustomerDto))]
         public int CustomerId { get; set; }
         public virtual CustomerDto Customer { get; set; }
+        public List<SellingTransactionDto> SellingTransactions { get; set; }
     }
 }

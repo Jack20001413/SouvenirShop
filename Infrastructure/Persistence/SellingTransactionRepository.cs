@@ -17,5 +17,11 @@ namespace Infrastructure.Persistence
             return _db.SellingTransactions.Include(t => t.ProductDetail)
                 .Include(t => t.ProductDetail).ToList();
         }
+
+        public List<SellingTransaction> GetTransactionBySellingId(int id)
+        {
+            var transactions = _db.SellingTransactions.Where(c => c.SellingOrderId == id).Include(t => t.ProductDetail);
+            return transactions.ToList();
+        }
     }
 }

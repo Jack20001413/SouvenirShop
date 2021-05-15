@@ -25,6 +25,9 @@ namespace Infrastructure.Persistence.Config
             builder.Property(c => c.Address)
                 .IsRequired();
 
+            builder.Property(c => c.Phone)
+                .IsRequired();
+
             builder.Property(c => c.BirthDate)
                 .IsRequired();
         }

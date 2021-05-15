@@ -83,7 +83,11 @@ namespace Application.Services
         public SellingOrderDto GetSellingOrder(int id)
         {
             var order = _orderRepo.GetById(id);
-            return _mapper.Map<SellingOrderDto>(order);
+            order.Customer = _customerRepo.GetById(order.CustomerId);
+            var sellingTransactions = _transRepo.GetTransactionBySellingId(id);
+            var orderDto = _mapper.Map<SellingOrderDto>(order);
+            orderDto.SellingTransactions = _mapper.Map<List<SellingTransactionDto>>(sellingTransactions);
+            return orderDto;
         }
 
         public bool SellingOrderExists(int id)
