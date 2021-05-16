@@ -12,5 +12,7 @@ namespace Application.Interfaces
         SellingOrderDto DeleteSellingOrder(int id);
         bool SellingOrderExists(int id); 
         BaseSearchDto<SellingOrderDto> GetAll(BaseSearchDto<SellingOrderDto> searchDto);
+        IEnumerable<SellingTransactionDto> GetSellingTransactionByOrderId(int id);
+        IEnumerable<SellingOrderDto> GetSellingOrderByCustomerId(int id);
     }
 }

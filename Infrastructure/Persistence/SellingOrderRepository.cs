@@ -31,5 +31,11 @@ namespace Infrastructure.Persistence
                 result = orderSearch.result.ToList()
             };
         }
+
+        public IEnumerable<SellingOrder> GetSellingOrderByCustomerId(int id)
+        {
+            var order = _db.SellingOrders.Where(o => o.CustomerId == id);
+            return order.ToList();
+        }
     }
 }

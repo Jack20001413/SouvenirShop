@@ -68,10 +68,7 @@ namespace Controllers
         public ActionResult<SellingOrderDto> CreateSellingOrder([FromBody] SellingOrderDto order){
             order.CustomerId = order.Customer.Id;
             order.Customer = null;
-            foreach(SellingTransactionDto tran in order.SellingTransactions){
-                tran.ProductDetailId = tran.ProductDetail.Id;
-                tran.ProductDetail = null;
-            }
+
             var orderDto = _orderService.CreateSellingOrder(order);
 
             if (orderDto == null) {
@@ -114,6 +111,38 @@ namespace Controllers
             List<string> successMessage = new List<string>();
             successMessage.Add("Xoá thành công");
             var responseDto = new ResponseDto(successMessage, 200, "");
+            return Ok(responseDto);
+        }
+
+        [HttpGet("get-transaction-by-order-id/{id:int}")]
+        public ActionResult<IEnumerable<SellingTransactionDto>> GetSellingTransactionByOrderId(int id){
+            var transactions = _orderService.GetSellingTransactionByOrderId(id);
+
+            if (transactions == null) {
+                List<string> errorMessage = new List<string>();
+                errorMessage.Add("Đã phát sinh lỗi, vui lòng thử lại");
+                return BadRequest(new ResponseDto(errorMessage, 500, transactions));
+            }
+            
+            List<string> successMessage = new List<string>();
+            successMessage.Add("Xoá thành công");
+            var responseDto = new ResponseDto(successMessage, 200, transactions);
+            return Ok(responseDto);
+        }
+
+        [HttpGet("get-by-customer-id/{id:int}")]
+        public ActionResult<IEnumerable<SellingOrderDto>> GetSellingOrderByCustomerId(int id){
+            var orders = _orderService.GetSellingOrderByCustomerId(id);
+
+            if (orders == null) {
+                List<string> errorMessage = new List<string>();
+                errorMessage.Add("Đã phát sinh lỗi, vui lòng thử lại");
+                return BadRequest(new ResponseDto(errorMessage, 500, orders));
+            }
+            
+            List<string> successMessage = new List<string>();
+            successMessage.Add("Xoá thành công");
+            var responseDto = new ResponseDto(successMessage, 200, orders);
             return Ok(responseDto);
         }
     }
