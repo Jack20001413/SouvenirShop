@@ -116,5 +116,20 @@ namespace Controllers
             var responseDto = new ResponseDto(successMessage, 200, "");
             return Ok(responseDto);
         }
+
+        [HttpPost("payment")]
+        public ActionResult<OrderPaymentIntentDto> Payment([FromBody] PaymentInputDto paymentInput){
+            var orderPaymentIntent = _orderService.CreatePaymentIntent(paymentInput.OrderId);
+            if (orderPaymentIntent == null) {
+                List<string> errorMessage = new List<string>();
+                errorMessage.Add("Đã phát sinh lỗi, vui lòng thử lại");
+                return BadRequest(new ResponseDto(errorMessage, 500, orderPaymentIntent));
+            }
+
+            List<string> successMessage = new List<string>();
+            successMessage.Add("Thêm thông tin thành công");
+            var responseDto = new ResponseDto(successMessage, 200, orderPaymentIntent);
+            return Ok(responseDto);
+        }
     }
 }

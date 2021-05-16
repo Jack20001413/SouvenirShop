@@ -16,19 +16,23 @@ namespace Application.Services
         private readonly ISellingOrderRepository _orderRepo;
         private readonly IMapper _mapper;
         private readonly ISellingTransactionRepository _transRepo;
+        private readonly IProductDetailRepository _productDetailRepo;
         private readonly ICustomerRepository _customerRepo;
         private readonly IConfiguration _config;
 
         public SellingOrderService(ISellingOrderRepository orderRepo
                                    ,IMapper mapper
                                    ,ISellingTransactionRepository transRepo
+                                   ,IProductDetailRepository productDetailRepo
                                    ,ICustomerRepository customerRepo
-                                   ,IConfiguration _config)
+                                   ,IConfiguration config)
         {
             _orderRepo = orderRepo;
             _mapper = mapper;
             _transRepo = transRepo;
+            _productDetailRepo = productDetailRepo;
             _customerRepo = customerRepo;
+            _config = config;
         }
 
         public SellingOrderDto CreateSellingOrder(SellingOrderDto orderDto)
@@ -39,7 +43,10 @@ namespace Application.Services
             if(res <= 0){
                 return null;
             }
-            return orderDto;
+            int insertedId = _orderRepo.GetLatestSellingOrderId();
+            var orderInserted = this.GetSellingOrder(insertedId);
+            var orderDtoInserted = _mapper.Map<SellingOrderDto>(orderInserted);
+            return orderDtoInserted;
         }
 
         public SellingOrderDto DeleteSellingOrder(int id)
@@ -115,32 +122,41 @@ namespace Application.Services
             return orderDto;
         }
 
-        // public async Task<OrderPaymentIntentDto> CreatePaymentIntentAsync(SellingOrderDto sellingOrder)
-        // {
-        //     StripeConfiguration.ApiKey = _config["StripeSettings:SecretKey"];
+        public OrderPaymentIntentDto CreatePaymentIntent(int orderId)
+        {
+            var order = _orderRepo.GetById(orderId);
+            var customer = _customerRepo.GetById(order.CustomerId);
+            StripeConfiguration.ApiKey = _config["StripeSettings:SecretKey"];
 
-        //     var service = new PaymentIntentService();
+            var service = new PaymentIntentService();
+            var serviceCustomer = new CustomerService();
 
-        //     var options = new PaymentIntentCreateOptions
-        //     {
-        //         Amount = Convert.ToInt64(sellingOrder.Total) * 100,
-        //         Currency = "usd",
-        //         PaymentMethodTypes = new List<string> { "card" }
-        //     };
+            var optionCustomer = new CustomerCreateOptions
+            {
+                Name = customer.Name
+            };
+            // var intentCustomer = serviceCustomer.Create(optionCustomer);
 
-        //     var intent = await service.CreateAsync(options);
+            var options = new PaymentIntentCreateOptions
+            {
+                Amount = Convert.ToInt64(order.Total),
+                Currency = "vnd",
+                PaymentMethodTypes = new List<string> { "card" },
+            
+            };
 
-        //     sellingOrder.PaymentIntent = new OrderPaymentIntentDto
-        //     {
-        //         PaymentIndentId = intent.Id,
-        //         ClientSecret = intent.ClientSecret
-        //     };
-        //     sellingOrder.
+            var intent = service.Create(options);
 
-        //     _unitOfWork.Orders.Update(sellingOrder);
-        //     await _unitOfWork.CompleteAsync();
+            order.PaymentIndentId = intent.Id;
+            order.ClientSecret = intent.ClientSecret;
 
-        //     return sellingOrder.PaymentIntent;
-        // }
+            _orderRepo.Update(order);
+
+            var orderPaymentIntentDto = new OrderPaymentIntentDto();
+            orderPaymentIntentDto.PaymentIndentId = intent.Id;
+            orderPaymentIntentDto.ClientSecret = intent.ClientSecret;
+
+            return orderPaymentIntentDto;
+        }
     }
 }

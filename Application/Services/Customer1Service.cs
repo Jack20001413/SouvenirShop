@@ -11,12 +11,12 @@ using SouvenirShop.Domain.Entities;
 using System;
 namespace Application.Services
 {
-    public class CustomerService : ICustomerService
+    public class Customer1Service : ICustomerService
     {
         private readonly ICustomerRepository _repo;
         private readonly IMapper _mapper;
 
-        public CustomerService(ICustomerRepository repo, IMapper mapper)
+        public Customer1Service(ICustomerRepository repo, IMapper mapper)
         {
             _repo = repo;
             _mapper = mapper;

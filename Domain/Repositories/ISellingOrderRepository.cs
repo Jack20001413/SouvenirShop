@@ -8,5 +8,6 @@ namespace Domain.Repositories
     {
         IEnumerable<SellingOrder> GetAll();
         BaseSearchDto<SellingOrder> GetAll(BaseSearchDto<SellingOrderDto> search);
+        int GetLatestSellingOrderId();
     }
 }
