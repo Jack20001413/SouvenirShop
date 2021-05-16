@@ -7,20 +7,11 @@ namespace Application.DTOs
     {
         [Key]
         public int Id { get; set; }
-
-        [Required]
         public string Name { get; set; }
-
-        [Required]
         public int Quantity { get; set; }
-
-        [Required]
         public int SellingPrice { get; set; }
-
-
         public int ImportingPrice { get; set; }
         public string ImageUrl { get; set; }
-        
         [ForeignKey(nameof(ColorDto))]
         public int ColorId { get; set; }
         public virtual ColorDto Color { get; set; }

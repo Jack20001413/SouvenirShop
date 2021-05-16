@@ -144,7 +144,7 @@ namespace Controllers
             if(response == null){
                 List<string> errorMessage = new List<string>();
                 errorMessage.Add("Tài khoản hoặc mật khẩu không hợp lệ, vui lòng thử lại");
-                return NotFound(new ResponseDto(errorMessage, 500, response));
+                return Ok(new ResponseDto(errorMessage, 500, response));
             }
 
             List<string> successMessage = new List<string>();

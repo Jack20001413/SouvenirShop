@@ -1,11 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Application.DTOs;
 using Application.Interfaces;
 using AutoMapper;
 using Domain.Repositories;
 using SouvenirShop.Domain.Entities;
-
+using Microsoft.Extensions.Configuration;
+using System;
+using Stripe;
 namespace Application.Services
 {
     public class SellingOrderService : ISellingOrderService
@@ -14,11 +17,13 @@ namespace Application.Services
         private readonly IMapper _mapper;
         private readonly ISellingTransactionRepository _transRepo;
         private readonly ICustomerRepository _customerRepo;
+        private readonly IConfiguration _config;
 
         public SellingOrderService(ISellingOrderRepository orderRepo
                                    ,IMapper mapper
                                    ,ISellingTransactionRepository transRepo
-                                   ,ICustomerRepository customerRepo)
+                                   ,ICustomerRepository customerRepo
+                                   ,IConfiguration _config)
         {
             _orderRepo = orderRepo;
             _mapper = mapper;
@@ -109,5 +114,33 @@ namespace Application.Services
             }
             return orderDto;
         }
+
+        // public async Task<OrderPaymentIntentDto> CreatePaymentIntentAsync(SellingOrderDto sellingOrder)
+        // {
+        //     StripeConfiguration.ApiKey = _config["StripeSettings:SecretKey"];
+
+        //     var service = new PaymentIntentService();
+
+        //     var options = new PaymentIntentCreateOptions
+        //     {
+        //         Amount = Convert.ToInt64(sellingOrder.Total) * 100,
+        //         Currency = "usd",
+        //         PaymentMethodTypes = new List<string> { "card" }
+        //     };
+
+        //     var intent = await service.CreateAsync(options);
+
+        //     sellingOrder.PaymentIntent = new OrderPaymentIntentDto
+        //     {
+        //         PaymentIndentId = intent.Id,
+        //         ClientSecret = intent.ClientSecret
+        //     };
+        //     sellingOrder.
+
+        //     _unitOfWork.Orders.Update(sellingOrder);
+        //     await _unitOfWork.CompleteAsync();
+
+        //     return sellingOrder.PaymentIntent;
+        // }
     }
 }

@@ -7,13 +7,8 @@ namespace Application.DTOs
     {
         [Key]
         public int Id { get; set; }
-
-        [Required]
         public int Quantity { get; set; }
-
-        [Required]
         public int Price { get; set; }
-
         [ForeignKey(nameof(ProductDetailDto))]
         public int ProductDetailId { get; set; }
         public virtual ProductDetailDto ProductDetail { get; set; }

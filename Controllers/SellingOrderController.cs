@@ -68,7 +68,10 @@ namespace Controllers
         public ActionResult<SellingOrderDto> CreateSellingOrder([FromBody] SellingOrderDto order){
             order.CustomerId = order.Customer.Id;
             order.Customer = null;
-
+            foreach(SellingTransactionDto tran in order.SellingTransactions){
+                tran.ProductDetailId = tran.ProductDetail.Id;
+                tran.ProductDetail = null;
+            }
             var orderDto = _orderService.CreateSellingOrder(order);
 
             if (orderDto == null) {

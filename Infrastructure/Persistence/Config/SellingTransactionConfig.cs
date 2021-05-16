@@ -19,7 +19,7 @@ namespace Infrastructure.Persistence.Config
                 .HasForeignKey(t => t.ProductDetailId);
 
             builder.HasOne(t => t.SellingOrder)
-                .WithMany(o => o.Transactions)
+                .WithMany(o => o.SellingTransactions)
                 .HasForeignKey(t => t.SellingOrderId);
         }
     }

@@ -9,24 +9,13 @@ namespace Application.DTOs
     {
         [Key]
         public int Id { get; set; }
-
-        [Required]
         [DataType(DataType.DateTime)]
         public DateTime InvoiceDate { get; set; }
-
-        [Required]
         public int Total { get; set; }
-
-        [Required]
         public string Address { get; set; }
-
-        [Required]
-        public DateTime DeliveryDate { get; set; }
-
-        [Required]
+        [DataType(DataType.DateTime)]
+        public DateTime? DeliveryDate { get; set; }
         public string ReceivePerson { get; set; }
-
-        [Required]
         public string Status { get; set; }
 
         [ForeignKey(nameof(CustomerDto))]

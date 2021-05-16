@@ -8,8 +8,7 @@ namespace Infrastructure.Persistence.Config
     {
         public void Configure(EntityTypeBuilder<SellingOrder> builder)
         {
-            builder.Property(o => o.DeliveryDate)
-                .IsRequired();
+            builder.Property(o => o.DeliveryDate);
 
             builder.Property(o => o.InvoiceDate)
                 .IsRequired();
@@ -34,6 +33,13 @@ namespace Infrastructure.Persistence.Config
             builder.HasOne(o => o.Customer)
                 .WithMany(c => c.SellingOrders)
                 .HasForeignKey(o => o.CustomerId);
+
+            // builder.Property(o => o.PaymentIndentId)
+            //     .IsUnicode();
+
+            // builder.Property(o => o.ClientSecret)
+            //     .IsUnicode();
+
         }
     }
 }
