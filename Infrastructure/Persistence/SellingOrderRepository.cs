@@ -37,5 +37,10 @@ namespace Infrastructure.Persistence
             var order = _db.SellingOrders.Where(o => o.CustomerId == id);
             return order.ToList();
         }
+        
+        public int GetLatestSellingOrderId() {
+            var id = _db.SellingOrders.Max(p => p.Id);
+            return id;
+        }
     }
 }

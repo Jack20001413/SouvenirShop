@@ -22,5 +22,7 @@ namespace Application.DTOs
         public int CustomerId { get; set; }
         public virtual CustomerDto Customer { get; set; }
         public List<SellingTransactionDto> SellingTransactions { get; set; }
+        public string PaymentIndentId { get; set; }
+        public string ClientSecret { get; set; }
     }
 }

@@ -14,5 +14,6 @@ namespace Application.Interfaces
         BaseSearchDto<SellingOrderDto> GetAll(BaseSearchDto<SellingOrderDto> searchDto);
         IEnumerable<SellingTransactionDto> GetSellingTransactionByOrderId(int id);
         IEnumerable<SellingOrderDto> GetSellingOrderByCustomerId(int id);
+        OrderPaymentIntentDto CreatePaymentIntent(int orderId);
     }
 }

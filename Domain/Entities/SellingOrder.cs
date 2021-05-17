@@ -18,8 +18,8 @@ namespace SouvenirShop.Domain.Entities
         public virtual Customer Customer { get; set; }
 
         public ICollection<SellingTransaction> SellingTransactions { get; set; }
-        // public string PaymentIndentId { get; set; }
-        // public string ClientSecret { get; set; }
+        public string PaymentIndentId { get; set; }
+        public string ClientSecret { get; set; }
 
     }
 }

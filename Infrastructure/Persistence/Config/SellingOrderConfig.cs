@@ -34,11 +34,11 @@ namespace Infrastructure.Persistence.Config
                 .WithMany(c => c.SellingOrders)
                 .HasForeignKey(o => o.CustomerId);
 
-            // builder.Property(o => o.PaymentIndentId)
-            //     .IsUnicode();
+            builder.Property(o => o.PaymentIndentId)
+                .IsUnicode();
 
-            // builder.Property(o => o.ClientSecret)
-            //     .IsUnicode();
+            builder.Property(o => o.ClientSecret)
+                .IsUnicode();
 
         }
     }
