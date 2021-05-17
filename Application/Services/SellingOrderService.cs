@@ -18,13 +18,15 @@ namespace Application.Services
         private readonly IProductDetailRepository _productDetailRepo;
         private readonly ICustomerRepository _customerRepo;
         private readonly IConfiguration _config;
+        private readonly IProductRepository _productRepo;
 
         public SellingOrderService(ISellingOrderRepository orderRepo
                                    ,IMapper mapper
                                    ,ISellingTransactionRepository transRepo
                                    ,ICustomerRepository customerRepo
                                    ,IProductDetailRepository productDetailRepo
-                                   ,IConfiguration config)
+                                   ,IConfiguration config
+                                   ,IProductRepository productRepo)
         {
             _orderRepo = orderRepo;
             _mapper = mapper;
@@ -32,11 +34,27 @@ namespace Application.Services
             _productDetailRepo = productDetailRepo;
             _customerRepo = customerRepo;
             _config = config;
+            _productRepo = productRepo;
         }
 
         public SellingOrderDto CreateSellingOrder(SellingOrderDto orderDto)
         {
             var order = _mapper.Map<SellingOrder>(orderDto);
+
+            foreach(SellingTransaction transaction in order.SellingTransactions){
+                // Trừ số lượng của từng chi tiết sản phẩm
+                var productDetail = _productDetailRepo.GetById(transaction.ProductDetailId);
+                productDetail.Quantity = productDetail.Quantity - transaction.Quantity;
+                _productDetailRepo.Update(productDetail);
+
+                // Trừ số lượng của sản phẩm
+                var product = _productRepo.GetById(productDetail.ProductId);
+                product.Quantity = product.Quantity - transaction.Quantity;
+                _productRepo.Update(product);
+            }
+
+            
+
             int res = _orderRepo.Create(order);
 
             if(res <= 0){
