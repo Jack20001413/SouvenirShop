@@ -93,7 +93,12 @@ namespace Application.Services
         public IEnumerable<SellingOrderDto> GetSellingOrderByCustomerId(int id)
         {
             var orders = _orderRepo.GetSellingOrderByCustomerId(id);
-            return _mapper.Map<IEnumerable<SellingOrderDto>>(orders);
+            var orderDtos = _mapper.Map<IEnumerable<SellingOrderDto>>(orders);
+            foreach(SellingOrderDto order in orderDtos){
+                var transactions = _transRepo.GetTransactionBySellingId(order.Id);
+                order.SellingTransactions = _mapper.Map<List<SellingTransactionDto>>(transactions);
+            }
+            return orderDtos;
         }
 
         public IEnumerable<SellingTransactionDto> GetSellingTransactionByOrderId(int id)
