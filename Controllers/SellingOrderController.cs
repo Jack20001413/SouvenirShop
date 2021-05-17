@@ -164,5 +164,20 @@ namespace Controllers
             var responseDto = new ResponseDto(successMessage, 200, orderPaymentIntent);
             return Ok(responseDto);
         }
+
+        [HttpPost("get-month-cost")]
+        public ActionResult<SellingOrderDto> GetMonthCostDetails([FromBody] RangeDateDto rangeDate){
+            var monthCostDetails = _orderService.getMonthCostDetails(rangeDate);
+
+            if (monthCostDetails == null) {
+                List<string> errorMessage = new List<string>();
+                errorMessage.Add("Đã phát sinh lỗi, vui lòng thử lại");
+                return BadRequest(new ResponseDto(errorMessage, 500, monthCostDetails));
+            }
+            List<string> successMessage = new List<string>();
+            successMessage.Add("Lấy dữ liệu thành công");
+            var responseDto = new ResponseDto(successMessage, 200, monthCostDetails);
+            return Ok(responseDto);
+        }
     }
 }

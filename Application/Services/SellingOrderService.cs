@@ -167,5 +167,29 @@ namespace Application.Services
 
             return orderPaymentIntentDto;
         }
+
+        public List<MonthCostDetailDto> getMonthCostDetails(RangeDateDto rangeDateDto) {
+            var orders = _orderRepo.GetAll();
+            var result = new List<MonthCostDetailDto>();
+            for (var i=1;i<=12;i++) {
+                MonthCostDetailDto m = new MonthCostDetailDto();
+                m.YearDate = rangeDateDto.ToDate.Year;
+                m.MonthDate = i;
+                m.Total = 0;
+                result.Add(m);
+            }
+            foreach(SellingOrder s in orders) {
+                if (s.InvoiceDate.Year != rangeDateDto.ToDate.Year) {
+                    continue;
+                }
+                for (var i=1;i<=12;i++) {
+                    if (s.InvoiceDate.Month == i) {
+                        result[i-1].Total += s.Total;
+                        break;
+                    }
+                }
+            }
+            return result.ToList();
+        }
     }
 }

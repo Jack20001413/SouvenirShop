@@ -15,5 +15,6 @@ namespace Application.Interfaces
         IEnumerable<SellingTransactionDto> GetSellingTransactionByOrderId(int id);
         IEnumerable<SellingOrderDto> GetSellingOrderByCustomerId(int id);
         OrderPaymentIntentDto CreatePaymentIntent(int orderId);
+        List<MonthCostDetailDto> getMonthCostDetails(RangeDateDto rangeDateDto);
     }
 }
