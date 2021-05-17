@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Application.DTOs;
 using SouvenirShop.Domain.Entities;
-
+using System;
 namespace Domain.Repositories
 {
     public interface ISellingOrderRepository : IRepository<SellingOrder>
