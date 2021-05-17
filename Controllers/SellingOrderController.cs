@@ -68,6 +68,10 @@ namespace Controllers
         public ActionResult<SellingOrderDto> CreateSellingOrder([FromBody] SellingOrderDto order){
             order.CustomerId = order.Customer.Id;
             order.Customer = null;
+            foreach(SellingTransactionDto tran in order.SellingTransactions){
+                tran.ProductDetailId = tran.ProductDetail.Id;
+                tran.ProductDetail = null;
+            }
 
             var orderDto = _orderService.CreateSellingOrder(order);
 
@@ -143,6 +147,9 @@ namespace Controllers
             List<string> successMessage = new List<string>();
             successMessage.Add("Xoá thành công");
             var responseDto = new ResponseDto(successMessage, 200, orders);
+            return Ok(responseDto);
+        }
+
         [HttpPost("payment")]
         public ActionResult<OrderPaymentIntentDto> Payment([FromBody] PaymentInputDto paymentInput){
             var orderPaymentIntent = _orderService.CreatePaymentIntent(paymentInput.OrderId);

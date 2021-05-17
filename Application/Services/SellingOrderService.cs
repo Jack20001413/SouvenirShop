@@ -5,7 +5,9 @@ using Application.Interfaces;
 using AutoMapper;
 using Domain.Repositories;
 using SouvenirShop.Domain.Entities;
-
+using Microsoft.Extensions.Configuration;
+using System;
+using Stripe;
 namespace Application.Services
 {
     public class SellingOrderService : ISellingOrderService
@@ -15,6 +17,7 @@ namespace Application.Services
         private readonly ISellingTransactionRepository _transRepo;
         private readonly IProductDetailRepository _productDetailRepo;
         private readonly ICustomerRepository _customerRepo;
+        private readonly IConfiguration _config;
 
         public SellingOrderService(ISellingOrderRepository orderRepo
                                    ,IMapper mapper
@@ -142,13 +145,6 @@ namespace Application.Services
             StripeConfiguration.ApiKey = _config["StripeSettings:SecretKey"];
 
             var service = new PaymentIntentService();
-            var serviceCustomer = new CustomerService();
-
-            var optionCustomer = new CustomerCreateOptions
-            {
-                Name = customer.Name
-            };
-            // var intentCustomer = serviceCustomer.Create(optionCustomer);
 
             var options = new PaymentIntentCreateOptions
             {
